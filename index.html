@@ -377,7 +377,7 @@
 
                 <div id="simulatorPanel" class="bg-white rounded-3xl p-4 border-4 border-blue-400 shadow-xl space-y-3 font-sans hidden">
                     <div class="flex justify-between items-center border-b-2 border-slate-100 pb-2">
-                        <span class="text-xs font-bold text-blue-500 uppercase tracking-widest flex items-center gap-1 font-semibold">
+                        <span class="text-xs font-bold text-blue-500 uppercase tracking-test flex items-center gap-1 font-semibold">
                             🕹️ Caminador Virtual
                         </span>
                     </div>
@@ -1324,22 +1324,6 @@
             alertBox.classList.remove('translate-y-0', 'opacity-100');
             alertBox.classList.add('-translate-y-40', 'opacity-0', 'pointer-events-none');
         };
-
-        // Exponer explícitamente las funciones al contexto global (window)
-        window.switchScreen = switchScreen;
-        window.selectAvatar = selectAvatar;
-        window.resetAdminMission = resetAdminMission;
-        window.publishGame = publishGame;
-        window.simulateMockCompetitor = simulateMockCompetitor;
-        window.playOwnCreatedGame = playOwnCreatedGame;
-        window.joinGameByCode = joinGameByCode;
-        window.confirmPlayerNameAndStart = confirmPlayerNameAndStart;
-        window.centerMapOnPlayer = centerMapOnPlayer;
-        window.simulateMove = simulateMove;
-        window.centerAdminMap = centerAdminMap;
-        window.selectTreasureToPlace = selectTreasureToPlace;
-        window.teleportToMission = teleportToMission;
-        window.dismissTeleport = dismissTeleport;
 
         // Escuchador de redimensionamiento
         window.addEventListener('resize', () => {
