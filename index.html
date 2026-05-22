@@ -176,15 +176,15 @@
                 <span class="text-xs font-bold text-purple-500 uppercase tracking-widest block">¡Elige tu Personaje! 👇</span>
                 <div class="grid grid-cols-5 gap-2 max-w-[320px] mx-auto" id="avatarGrid">
                     <button type="button" onclick="window.selectAvatar('🐆', this)" class="w-11 h-11 text-2xl bg-purple-100 border-4 border-purple-500 rounded-2xl flex items-center justify-center transition active:scale-90">🐆</button>
-                    <button type="button" onclick="window.selectAvatar('🦊', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦊</button>
-                    <button type="button" onclick="window.selectAvatar('🦜', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦜</button>
-                    <button type="button" onclick="window.selectAvatar('🐒', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐒</button>
-                    <button type="button" onclick="window.selectAvatar('🐸', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐸</button>
-                    <button type="button" onclick="window.selectAvatar('🦁', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦁</button>
-                    <button type="button" onclick="window.selectAvatar('🐼', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐼</button>
-                    <button type="button" onclick="window.selectAvatar('🦄', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦄</button>
-                    <button type="button" onclick="window.selectAvatar('🐯', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐯</button>
-                    <button type="button" onclick="window.selectAvatar('🐨', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐨</button>
+                    <button type="button" onclick="window.selectAvatar('🦊', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦊</button>
+                    <button type="button" onclick="window.selectAvatar('🦜', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦜</button>
+                    <button type="button" onclick="window.selectAvatar('🐒', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐒</button>
+                    <button type="button" onclick="window.selectAvatar('🐸', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐸</button>
+                    <button type="button" onclick="window.selectAvatar('🦁', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦁</button>
+                    <button type="button" onclick="window.selectAvatar('🐼', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐼</button>
+                    <button type="button" onclick="window.selectAvatar('🦄', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦄</button>
+                    <button type="button" onclick="window.selectAvatar('🐯', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐯</button>
+                    <button type="button" onclick="window.selectAvatar('🐨', this)" class="w-11 h-11 text-2xl bg-slate-100 hover:bg-purple-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐨</button>
                 </div>
             </div>
 
@@ -257,7 +257,7 @@
                     </div>
                 </div>
 
-                <!-- Columna Derecha: Scoreboard en vivo -->
+                <!-- Tabla de equipos conectados en tiempo real (Derecha) -->
                 <div class="lg:col-span-3 bg-slate-50 border-4 border-amber-200 rounded-3xl p-4 flex flex-col justify-between h-full">
                     <div>
                         <div class="flex items-center justify-between border-b pb-2 mb-3">
@@ -296,7 +296,7 @@
 
             <div class="w-full flex flex-col sm:flex-row gap-3">
                 <button type="button" onclick="window.switchScreen('adminScreen')" class="w-full sm:w-1/2 btn-game-orange font-bold py-3.5 rounded-2xl text-xs md:text-sm">
-                    Radar en Vivo 📡
+                    Ir al Radar en Vivo 📡
                 </button>
                 <button type="button" onclick="window.playOwnCreatedGame()" class="w-full sm:w-1/2 btn-game-green font-bold py-3.5 rounded-2xl text-xs md:text-sm">
                     Probar Yo Mismo 🎮
@@ -588,26 +588,28 @@
         function getSmartLocation(successCallback, errorCallback) {
             updateStatusIndicator("🛰️ Buscando Señal GPS...");
             if (navigator.geolocation) {
+                // ETAPA 1: Intento inmediato de red (Celda/WiFi), que suele retornar de forma instantánea
                 navigator.geolocation.getCurrentPosition(
-                    (pos) => {
-                        updateStatusIndicator("✅ GPS Real Activo");
-                        if (successCallback) successCallback(pos);
+                    (fastPos) => {
+                        updateStatusIndicator("📶 GPS Red Activo (Fijando satélites...)");
+                        if (successCallback) successCallback(fastPos);
                     },
-                    (err) => {
-                        console.warn("Reintentando por WiFi/Celular...");
+                    (fastErr) => {
+                        console.warn("Fallo geolocalización rápida, intentando con alta precisión satelital...");
+                        // ETAPA 2: Satélites con timeout extendido
                         navigator.geolocation.getCurrentPosition(
-                            (pos) => {
-                                updateStatusIndicator("📶 GPS Red Activo");
-                                if (successCallback) successCallback(pos);
+                            (precisePos) => {
+                                updateStatusIndicator("✅ GPS Real Activo");
+                                if (successCallback) successCallback(precisePos);
                             },
-                            (finalErr) => {
+                            (preciseErr) => {
                                 updateStatusIndicator("📍 GPS Inactivo (Ubicación Temuco)");
-                                if (errorCallback) errorCallback(finalErr);
+                                if (errorCallback) errorCallback(preciseErr);
                             },
-                            { enableHighAccuracy: false, timeout: 8000 }
+                            { enableHighAccuracy: true, timeout: 5000 }
                         );
                     },
-                    { enableHighAccuracy: true, timeout: 5000 } 
+                    { enableHighAccuracy: false, timeout: 2000 } // Super rápido y ligero
                 );
             } else {
                 updateStatusIndicator("📍 GPS No Soportado");
@@ -748,7 +750,7 @@
             if (window.unsubPlayersListener) window.unsubPlayersListener();
             if (!window.isFirebaseAvailable) return;
 
-            const playersCol = collection(window.db, 'artifacts', window.appId, 'public', 'data', 'players');
+            const playersCol = collection(window.db, 'window.appId', 'public', 'data', 'players');
             
             window.unsubPlayersListener = onSnapshot(playersCol, (snapshot) => {
                 const activePlayers = [];
@@ -930,6 +932,7 @@
             window.switchScreen('gameScreen');
             updateStatusIndicator("Cargando tu mapa de expedición...");
 
+            // Inicializar el mapa de inmediato y buscar la localización de manera instantánea
             setTimeout(() => {
                 initPlayerMap(); 
 
