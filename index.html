@@ -750,7 +750,9 @@
             if (window.unsubPlayersListener) window.unsubPlayersListener();
             if (!window.isFirebaseAvailable) return;
 
-            const playersCol = collection(window.db, 'window.appId', 'public', 'data', 'players');
+            // CORRECCIÓN CRÍTICA DE LA RUTA EN FIRESTORE (REGLA 1):
+            // Cambiado 'window.appId' (un string literal que causaba error de permisos) a la variable real window.appId
+            const playersCol = collection(window.db, 'artifacts', window.appId, 'public', 'data', 'players');
             
             window.unsubPlayersListener = onSnapshot(playersCol, (snapshot) => {
                 const activePlayers = [];
@@ -1015,6 +1017,8 @@
 
             if (window.isFirebaseAvailable && window.auth && window.auth.currentUser && window.auth.currentUser.uid) {
                 try {
+                    // CORRECCIÓN EN ESCRITURA (REGLA 1):
+                    // Asegurar que la colección use la variable real window.appId y no el string plano 'window.appId'
                     const playerRef = doc(window.db, 'artifacts', window.appId, 'public', 'data', 'players', window.auth.currentUser.uid);
                     setDoc(playerRef, {
                         roomCode: window.activeRoomCode,
