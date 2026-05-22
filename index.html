@@ -205,13 +205,32 @@
                 <h3 class="text-lg md:text-2xl font-bold text-amber-600 flex items-center gap-2">
                     <span>🗺️</span> Consola del Profesor & Radar
                 </h3>
-                <button type="button" onclick="window.switchScreen('setupScreen')" class="text-xs md:text-sm bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-1.5 rounded-full font-bold">← Salir</button>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="window.requestAdminQuit()" class="text-xs md:text-sm bg-rose-500 hover:bg-rose-600 text-white px-4 py-1.5 rounded-full font-bold shadow-md">🛑 Terminar Juego</button>
+                    <button type="button" onclick="window.switchScreen('setupScreen')" class="text-xs md:text-sm bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-1.5 rounded-full font-bold">← Menú</button>
+                </div>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Columna Izquierda: Creación -->
                 <div class="lg:col-span-4 space-y-4 flex flex-col justify-between">
                     <div class="space-y-4">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 bg-amber-50 p-3 rounded-2xl border-2 border-amber-200 shadow-inner">
+                            <span class="text-xs font-extrabold text-amber-800 uppercase tracking-widest">¿Cuántos cofres ocultar? 🎒</span>
+                            <select id="treasureCountSelect" onchange="window.changeTreasureCount(this.value)" class="bg-white border-2 border-amber-300 rounded-xl px-3 py-1 text-xs font-bold text-slate-700 focus:outline-none focus:border-amber-500">
+                                <option value="1">1 Cofre</option>
+                                <option value="2">2 Cofres</option>
+                                <option value="3" selected>3 Cofres</option>
+                                <option value="4">4 Cofres</option>
+                                <option value="5">5 Cofres</option>
+                                <option value="6">6 Cofres</option>
+                                <option value="7">7 Cofres</option>
+                                <option value="8">8 Cofres</option>
+                                <option value="9">9 Cofres</option>
+                                <option value="10">10 Cofres</option>
+                            </select>
+                        </div>
+
                         <div class="flex justify-between items-center">
                             <span class="text-xs font-extrabold text-slate-400 uppercase tracking-widest">Pasos:</span>
                             <button type="button" onclick="window.resetAdminMission()" class="text-xs font-bold px-3 py-1 bg-rose-100 hover:bg-rose-200 border border-rose-300 text-rose-700 rounded-lg flex items-center gap-1 transition">
@@ -219,16 +238,15 @@
                             </button>
                         </div>
                         
-                        <div class="grid grid-cols-3 gap-2">
-                            <button type="button" id="btnSetT1" onclick="window.selectTreasureToPlace(0)" class="py-2.5 px-2 bg-amber-400 border-b-4 border-amber-600 text-slate-950 text-[11px] md:text-xs font-bold rounded-xl transition shadow-md">1. 🥉 Bronce</button>
-                            <button type="button" id="btnSetT2" onclick="window.selectTreasureToPlace(1)" class="py-2.5 px-2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] md:text-xs font-semibold rounded-xl transition">2. 🥈 Plata</button>
-                            <button type="button" id="btnSetT3" onclick="window.selectTreasureToPlace(2)" class="py-2.5 px-2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] md:text-xs font-semibold rounded-xl transition">3. 💎 Oro</button>
+                        <!-- Contenedor dinámico de botones de pasos (se rellenará mediante JS de 1 a 10) -->
+                        <div id="treasureStepsContainer" class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                            <!-- Inyectado dinámicamente -->
                         </div>
 
                         <div class="space-y-3 bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-200">
                             <div class="flex items-center gap-2">
                                 <span class="text-2xl">🦜</span>
-                                <h4 class="text-xs font-bold text-emerald-800 uppercase tracking-widest" id="clueSettingTitle">Pista Cofre 1 🥉:</h4>
+                                <h4 class="text-xs font-bold text-emerald-800 uppercase tracking-widest" id="clueSettingTitle">Pista Cofre:</h4>
                             </div>
                             <textarea id="clueSettingInput" rows="3" class="w-full bg-white border-2 border-emerald-300 rounded-xl p-2.5 text-xs md:text-sm text-slate-700 focus:outline-none focus:border-emerald-500 font-medium font-sans" placeholder="Escribe un enigma divertido..."></textarea>
                         </div>
@@ -250,11 +268,11 @@
                     <div class="relative font-sans">
                         <div id="adminMap"></div>
                         <div class="absolute bottom-4 right-4 z-[1000] flex flex-col gap-2">
-                            <button type="button" onclick="window.centerAdminMap()" class="bg-yellow-400 hover:bg-yellow-300 text-[10px] md:text-xs text-slate-900 font-extrabold px-3 py-2 rounded-xl border-2 border-yellow-600 shadow-md">
+                            <button type="button" onclick="window.centerAdminMap()" class="bg-yellow-400 hover:bg-yellow-300 text-[10px] md:text-xs text-slate-900 font-extrabold px-3 py-2 rounded-xl border-2 border-yellow-600 shadow-md font-sans">
                                 📍 Mi Ubicación
                             </button>
                             <!-- Botón para enfocar de forma inteligente todos los alumnos conectados -->
-                            <button type="button" id="btnFitCompetitors" onclick="window.fitCompetitorsBounds()" class="bg-emerald-500 hover:bg-emerald-450 text-[10px] md:text-xs text-white font-extrabold px-3 py-2 rounded-xl border-2 border-emerald-600 shadow-md hidden">
+                            <button type="button" id="btnFitCompetitors" onclick="window.fitCompetitorsBounds()" class="bg-emerald-500 hover:bg-emerald-450 text-[10px] md:text-xs text-white font-extrabold px-3 py-2 rounded-xl border-2 border-emerald-600 shadow-md font-sans hidden">
                                 🔍 Enfocar Alumnos
                             </button>
                         </div>
@@ -424,14 +442,36 @@
         </button>
     </div>
 
-    <!-- Mochila / Footer -->
-    <footer class="bg-emerald-600 border-t-8 border-emerald-700 py-4 px-6 text-center text-xs font-bold text-emerald-100 flex justify-between items-center rounded-t-3xl shadow-inner">
-        <div id="activePINFooter" class="uppercase tracking-wider text-yellow-200">🎒 Tu Mochila:</div>
-        <div class="flex gap-3 bg-emerald-800/40 px-3 py-1 rounded-full border border-emerald-500/20">
-            <span id="slot1" class="text-xl md:text-2xl opacity-20 grayscale filter transition duration-300 scale-90">🥉</span>
-            <span id="slot2" class="text-xl md:text-2xl opacity-20 grayscale filter transition duration-300 scale-90">🥈</span>
-            <span id="slot3" class="text-xl md:text-2xl opacity-20 grayscale filter transition duration-300 scale-90">💎</span>
+    <!-- Modal de Confirmación de Acción (Terminar Juego) -->
+    <div id="confirmActionModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[10000] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 border-4 border-rose-400 max-w-sm w-full text-center space-y-4 shadow-2xl">
+            <div class="text-5xl animate-bounce">🛑</div>
+            <h3 class="text-lg font-bold text-rose-600" id="confirmModalTitle">¿Estás seguro?</h3>
+            <p class="text-xs font-semibold text-slate-500 font-sans" id="confirmModalMsg">¿Estás seguro de que deseas salir y terminar la sesión actual?</p>
+            <div class="flex gap-3 pt-2">
+                <button type="button" onclick="window.closeConfirmModal()" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-xl text-xs">
+                    Cancelar
+                </button>
+                <button type="button" id="confirmModalActionButton" class="w-1/2 bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 rounded-xl text-xs shadow border-b-4 border-rose-700">
+                    Sí, Terminar 🛑
+                </button>
+            </div>
         </div>
+    </div>
+
+    <!-- Mochila / Footer -->
+    <footer class="bg-emerald-600 border-t-8 border-emerald-700 py-4 px-6 text-center text-xs font-bold text-emerald-100 flex justify-between items-center rounded-t-3xl shadow-inner gap-3">
+        <div class="flex items-center gap-2">
+            <div id="activePINFooter" class="uppercase tracking-wider text-yellow-200 whitespace-nowrap">🎒 Tu Mochila:</div>
+            <!-- Contenedor dinámico de los slots de mochila de los cofres -->
+            <div id="backpackSlotsContainer" class="flex flex-wrap gap-2 bg-emerald-800/40 px-3 py-1.5 rounded-full border border-emerald-500/20 max-w-[200px] sm:max-w-md justify-center overflow-x-auto">
+                <!-- Inyectado dinámicamente -->
+            </div>
+        </div>
+        <!-- Botón para Salir/Terminar del lado del Jugador -->
+        <button id="btnPlayerQuit" type="button" onclick="window.requestPlayerQuit()" class="bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded-xl shadow-md border-b-4 border-rose-700 text-[10px] md:text-xs transition-all uppercase whitespace-nowrap hidden active:border-b-0 active:translate-y-[4px]">
+            Abandonar Juego 🛑
+        </button>
     </footer>
 
     <!-- Firebase SDK e inicialización -->
@@ -477,13 +517,27 @@
             console.error("Error al inicializar Firebase:", error);
         }
 
+        // --- PRESETS DIVERDOS DE COFRES/ITEMS (Hasta 10 elementos) ---
+        const TREASURE_PRESETS = [
+            { emoji: '🥉', name: 'Bronce 🥉' },
+            { emoji: '🥈', name: 'Plata 🥈' },
+            { emoji: '💎', name: 'Oro 💎' },
+            { emoji: '🔑', name: 'Llave del Saber 🔑' },
+            { emoji: '🗺️', name: 'Mapa Secreto 🗺️' },
+            { emoji: '🧭', name: 'Brújula Dorada 🧭' },
+            { emoji: '👑', name: 'Corona Real 👑' },
+            { emoji: '⚔️', name: 'Espada Mítica ⚔️' },
+            { emoji: '🛡️', name: 'Escudo Leyenda 🛡️' },
+            { emoji: '🏆', name: 'Copa Absoluta 🏆' }
+        ];
+
         // --- ESTADO GENERAL DEL JUEGO ---
         const gameState = {
             isAdmin: false,
             gamePIN: null,
-            treasures: [null, null, null], // [ {lat, lng, clue}, ... ]
-            currentSelectionIndex: 0, // Índice del cofre que coloca el profesor (0, 1 o 2)
-            clues: ["", "", ""],
+            treasures: [null, null, null], // Ocupará dinámicamente de 1 a 10
+            currentSelectionIndex: 0, // Índice del cofre seleccionado por el profesor
+            clues: ["", "", ""], // Arreglo de pistas dinámico
             
             // Estado del Jugador (Alumno)
             activeGameId: null,
@@ -492,7 +546,7 @@
             playerAvatar: "🐆",
             playerLat: 0,
             playerLng: 0,
-            currentTreasureIndex: 0, // Indice de tesoro actual que está buscando (0, 1 o 2)
+            currentTreasureIndex: 0, 
             backpack: [false, false, false],
             
             // Ubicación base por defecto (coordenadas centrales iniciales por si no hay GPS)
@@ -521,7 +575,7 @@
             }
         };
 
-        // Escucha cambios de autenticación con guardado estricto (Evitamos crash si auth es null)
+        // Escucha cambios de autenticación con guardado estricto
         if (auth) {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -534,7 +588,7 @@
                 }
             });
         } else {
-            // Modo offline o de prueba local (Generar ID de jugador ficticio para no detener la app)
+            // Modo offline o de prueba local
             gameState.playerID = "offline-player-" + Math.floor(Math.random() * 1000);
             document.getElementById('gameStatusIndicator').textContent = "Modo Local ⚙️";
         }
@@ -550,12 +604,18 @@
             const target = document.getElementById(screenId);
             if (target) target.classList.remove('hidden');
 
+            const btnPlayerQuit = document.getElementById('btnPlayerQuit');
+
             // Acciones específicas al entrar a una pantalla
             if (screenId === 'adminScreen') {
                 gameState.isAdmin = true;
+                if (btnPlayerQuit) btnPlayerQuit.classList.add('hidden');
                 initAdminMap();
             } else if (screenId === 'gameScreen') {
+                if (btnPlayerQuit) btnPlayerQuit.classList.remove('hidden');
                 initPlayerMap();
+            } else {
+                if (btnPlayerQuit) btnPlayerQuit.classList.add('hidden');
             }
         };
 
@@ -594,6 +654,9 @@
         // --- CONSOLA DEL PROFESOR (ADMIN) ---
 
         function initAdminMap() {
+            // Render inicial de botones dinámicos según el selector
+            window.renderTreasureSteps();
+
             if (window.adminMapInstance) {
                 setTimeout(() => window.adminMapInstance.invalidateSize(), 200);
                 return;
@@ -629,12 +692,67 @@
             // Colocar marcador inicial del profesor si lo desea
             L.marker([lat, lng], {
                 icon: L.divIcon({
-                    html: '<span class="text-3xl">🧑‍🏫</span>',
+                    html: '<span class="text-3xl font-sans">🧑‍🏫</span>',
                     iconSize: [40, 40],
                     className: 'flex justify-center items-center'
                 })
             }).addTo(window.adminMapInstance).bindPopup("<b>Profesor (Tú)</b>");
         }
+
+        // --- MANEJO DINÁMICO DE COFRES (1 A 10) ---
+
+        window.renderTreasureSteps = function() {
+            const container = document.getElementById('treasureStepsContainer');
+            if (!container) return;
+            container.innerHTML = "";
+
+            const count = gameState.treasures.length;
+            for (let i = 0; i < count; i++) {
+                const preset = TREASURE_PRESETS[i % TREASURE_PRESETS.length];
+                const btn = document.createElement('button');
+                btn.type = "button";
+                btn.id = `btnSetT${i}`;
+                btn.onclick = () => window.selectTreasureToPlace(i);
+
+                if (i === gameState.currentSelectionIndex) {
+                    btn.className = "py-2 px-1 bg-amber-400 border-b-4 border-amber-600 text-slate-950 text-[10px] md:text-xs font-bold rounded-xl transition shadow-md truncate";
+                } else {
+                    btn.className = "py-2 px-1 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[10px] md:text-xs font-semibold rounded-xl transition truncate";
+                }
+                btn.textContent = `${i + 1}. ${preset.emoji}`;
+                container.appendChild(btn);
+            }
+        };
+
+        window.changeTreasureCount = function(value) {
+            const newCount = parseInt(value, 10);
+            const oldCount = gameState.treasures.length;
+
+            if (newCount < oldCount) {
+                // Eliminar del mapa los marcadores que están de más
+                for (let i = newCount; i < oldCount; i++) {
+                    if (window.adminMarkers[i]) {
+                        window.adminMapInstance.removeLayer(window.adminMarkers[i]);
+                    }
+                }
+                window.adminMarkers.length = newCount;
+                gameState.treasures.length = newCount;
+                gameState.clues.length = newCount;
+            } else if (newCount > oldCount) {
+                // Rellenar vacíos
+                for (let i = oldCount; i < newCount; i++) {
+                    gameState.treasures.push(null);
+                    gameState.clues.push("");
+                }
+            }
+
+            if (gameState.currentSelectionIndex >= newCount) {
+                gameState.currentSelectionIndex = 0;
+            }
+
+            window.renderTreasureSteps();
+            window.selectTreasureToPlace(gameState.currentSelectionIndex);
+        };
 
         function placeAdminTreasure(index, lat, lng) {
             // Eliminar marcador previo del cofre actual si existía
@@ -642,8 +760,7 @@
                 window.adminMapInstance.removeLayer(window.adminMarkers[index]);
             }
 
-            const emojis = ['🥉', '🥈', '💎'];
-            const names = ['Cofre Bronce 🥉', 'Cofre Plata 🥈', 'Cofre Oro 💎'];
+            const preset = TREASURE_PRESETS[index % TREASURE_PRESETS.length];
 
             gameState.treasures[index] = {
                 lat: lat,
@@ -654,13 +771,13 @@
             const marker = L.marker([lat, lng], {
                 draggable: true,
                 icon: L.divIcon({
-                    html: `<div class="text-3xl filter drop-shadow animate-bounce">${emojis[index]}</div>`,
+                    html: `<div class="text-3xl filter drop-shadow animate-bounce">${preset.emoji}</div>`,
                     iconSize: [40, 40],
                     className: 'flex justify-center items-center'
                 })
             }).addTo(window.adminMapInstance);
 
-            marker.bindPopup(`<b>${names[index]}</b><br>Arrastra para corregir su posición.`);
+            marker.bindPopup(`<b>Paso ${index + 1}: ${preset.name}</b><br>Arrastra para corregir su posición.`);
             
             // Evento para cuando se arrastre el marcador
             marker.on('dragend', (e) => {
@@ -670,10 +787,10 @@
             });
 
             window.adminMarkers[index] = marker;
-            window.showAlert("¡Escondido!", `Has colocado el ${names[index]} con éxito.`, emojis[index]);
+            window.showAlert("¡Escondido!", `Has colocado ${preset.name} con éxito.`, preset.emoji);
             
-            // Auto seleccionar el siguiente paso
-            if (index < 2) {
+            // Auto seleccionar el siguiente paso si existe
+            if (index < gameState.treasures.length - 1) {
                 window.selectTreasureToPlace(index + 1);
             }
         }
@@ -681,26 +798,17 @@
         window.selectTreasureToPlace = function(index) {
             gameState.currentSelectionIndex = index;
             
-            // Guardar texto de pista actual antes de cambiar
-            const textInput = document.getElementById('clueSettingInput');
-            
-            // UI de los botones activos
-            const btnIds = ['btnSetT1', 'btnSetT2', 'btnSetT3'];
-            btnIds.forEach((id, idx) => {
-                const btn = document.getElementById(id);
-                if (idx === index) {
-                    btn.className = "py-2.5 px-2 bg-amber-400 border-b-4 border-amber-600 text-slate-950 text-[11px] md:text-xs font-bold rounded-xl transition shadow-md";
-                } else {
-                    btn.className = "py-2.5 px-2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] md:text-xs font-semibold rounded-xl transition";
-                }
-            });
+            // Renderizar botones con el seleccionado resaltado
+            window.renderTreasureSteps();
 
-            const stepNames = ["Cofre Bronce 🥉", "Cofre Plata 🥈", "Cofre Oro 💎"];
-            document.getElementById('clueSettingTitle').textContent = `Pista ${stepNames[index]}:`;
+            const textInput = document.getElementById('clueSettingInput');
+            const preset = TREASURE_PRESETS[index % TREASURE_PRESETS.length];
+            
+            document.getElementById('clueSettingTitle').textContent = `Pista ${preset.name}:`;
             
             // Cargar pista existente
             textInput.value = gameState.clues[index] || "";
-            textInput.placeholder = `Describe el escondite del ${stepNames[index]}...`;
+            textInput.placeholder = `Describe el escondite del item: ${preset.name}...`;
         };
 
         // Escuchador de texto para actualizar pista dinámicamente
@@ -721,22 +829,26 @@
         };
 
         window.resetAdminMission = function() {
-            gameState.treasures = [null, null, null];
-            gameState.clues = ["", "", ""];
+            const count = gameState.treasures.length;
+            gameState.treasures = new Array(count).fill(null);
+            gameState.clues = new Array(count).fill("");
             window.adminMarkers.forEach(m => {
                 if (m) window.adminMapInstance.removeLayer(m);
             });
             window.adminMarkers = [];
             document.getElementById('clueSettingInput').value = "";
             window.selectTreasureToPlace(0);
-            window.showAlert("Limpio", "Se han reiniciado los cofres del mapa.", "🧹");
+            window.showAlert("Limpio", "Se han reiniciado los cofres de esta sesión.", "🧹");
         };
 
         // --- PUBLICACIÓN EN FIRESTORE (REGLA 1 Y REGLA 2) ---
 
         window.publishGame = async function() {
-            if (!gameState.treasures[0] || !gameState.treasures[1] || !gameState.treasures[2]) {
-                window.showAlert("Cofres Faltantes", "Debes colocar los 3 cofres en el mapa antes de publicar la misión.", "⚠️");
+            // Validar que todos los cofres elegidos tengan asignada una ubicación
+            const unplacedIndex = gameState.treasures.findIndex(t => t === null);
+            if (unplacedIndex !== -1) {
+                const preset = TREASURE_PRESETS[unplacedIndex % TREASURE_PRESETS.length];
+                window.showAlert("Faltan Cofres", `Debes colocar el cofre del paso ${unplacedIndex + 1} (${preset.emoji}) en el mapa antes de publicar.`, "⚠️");
                 return;
             }
 
@@ -772,7 +884,7 @@
                 document.getElementById('shareQR').src = qrUrl;
 
                 window.switchScreen('shareScreen');
-                window.showAlert("¡Éxito total!", `Misión publicada con código: ${pinCode}`, "🚀");
+                window.showAlert("¡Éxito total!", `Misión de ${gameState.treasures.length} cofres publicada con código: ${pinCode}`, "🚀");
                 
                 // Iniciar observador en vivo de alumnos conectados a este juego
                 observeLivePlayers(pinCode);
@@ -786,10 +898,8 @@
         // Escucha en tiempo real de alumnos activos (REGLA 1 Y 2)
         function observeLivePlayers(pinCode) {
             if (!db) return;
-            // Colección de jugadores registrados en este juego
             const playersColRef = collection(db, 'artifacts', window.appId, 'public', 'data', 'players');
             
-            // Traemos la lista de jugadores y filtramos en memoria por el gameId (REGLA 2)
             onSnapshot(playersColRef, (snapshot) => {
                 const activePlayers = [];
                 snapshot.forEach(doc => {
@@ -799,7 +909,6 @@
                     }
                 });
 
-                // Actualizar interfaz del Profesor
                 updateLivePlayersList(activePlayers);
             }, (error) => {
                 console.error("Error al escuchar alumnos en vivo:", error);
@@ -813,7 +922,6 @@
 
             if (players.length === 0) {
                 container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-6 font-sans">Ningún equipo conectado aún.</p>`;
-                // Ocultar botón de enfocar alumnos
                 document.getElementById('btnFitCompetitors').classList.add('hidden');
                 return;
             }
@@ -822,6 +930,7 @@
             document.getElementById('btnFitCompetitors').classList.remove('hidden');
 
             players.forEach(p => {
+                const totalCofres = gameState.treasures.length;
                 const finishedCount = p.backpack ? p.backpack.filter(Boolean).length : 0;
                 
                 // Crear fila de jugador
@@ -832,11 +941,11 @@
                         <span class="text-2xl">${p.playerAvatar || '🐆'}</span>
                         <div class="text-left">
                             <h5 class="text-xs font-bold text-slate-700">${p.playerName}</h5>
-                            <p class="text-[9px] text-slate-400 font-semibold font-sans">Buscando Tesoro ${p.currentTreasureIndex + 1}</p>
+                            <p class="text-[9px] text-slate-400 font-semibold font-sans">Busca: ${TREASURE_PRESETS[(p.currentTreasureIndex || 0) % TREASURE_PRESETS.length].emoji}</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-1 rounded-full whitespace-nowrap">${finishedCount}/3 Cofres</span>
+                        <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-1 rounded-full whitespace-nowrap">${finishedCount}/${totalCofres} Items</span>
                     </div>
                 `;
                 container.appendChild(row);
@@ -891,14 +1000,15 @@
 
         async function joinGame(pin) {
             if (!db) {
-                window.showAlert("Modo Local", "Sincronizando de forma interna...", "🎒");
-                // Fallback de demostración local
+                window.showAlert("Modo Local", "Sincronizando misión offline...", "🎒");
+                // Fallback de demostración local dinámica (3 cofres)
                 gameState.activeGameId = pin;
                 gameState.treasures = [
                     { lat: gameState.playerLat || gameState.defaultCoords.lat, lng: (gameState.playerLng || gameState.defaultCoords.lng) + 0.0003, clue: "¡Pista 1 del juego local en el patio de recreo!" },
                     { lat: (gameState.playerLat || gameState.defaultCoords.lat) + 0.0002, lng: gameState.playerLng || gameState.defaultCoords.lng, clue: "¡Pista 2: Cerca de las plantas!" },
                     { lat: (gameState.playerLat || gameState.defaultCoords.lat) - 0.0002, lng: (gameState.playerLng || gameState.defaultCoords.lng) - 0.0002, clue: "¡Pista 3 final: El gran tesoro dorado!" }
                 ];
+                gameState.backpack = new Array(gameState.treasures.length).fill(false);
                 window.switchScreen('nameInputScreen');
                 return;
             }
@@ -921,6 +1031,7 @@
                 const gameData = snapshot.data();
                 gameState.activeGameId = pin;
                 gameState.treasures = gameData.treasures;
+                gameState.backpack = new Array(gameState.treasures.length).fill(false);
                 
                 // Pasar a pantalla de registro de nombre/avatar
                 window.switchScreen('nameInputScreen');
@@ -952,12 +1063,18 @@
             }
 
             gameState.playerName = name;
+            gameState.currentTreasureIndex = 0;
+            gameState.backpack = new Array(gameState.treasures.length).fill(false);
+            
             document.getElementById('playerMascotDisplay').textContent = gameState.playerAvatar;
+
+            // Render dinámico de mochila
+            window.renderPlayerBackpack();
 
             if (!db) {
                 // Iniciar juego offline directamente
                 window.switchScreen('gameScreen');
-                window.showAlert("¡Listo para jugar!", "Modo entrenamiento activado.", "🎒");
+                window.showAlert("¡Listo para jugar!", `Misión de ${gameState.treasures.length} cofres iniciada.`, "🎒");
                 startTrackingGPS();
                 return;
             }
@@ -971,25 +1088,41 @@
                     playerAvatar: gameState.playerAvatar,
                     activeGameId: gameState.activeGameId,
                     currentTreasureIndex: 0,
-                    backpack: [false, false, false],
+                    backpack: gameState.backpack,
                     lat: gameState.playerLat || gameState.defaultCoords.lat,
                     lng: gameState.playerLng || gameState.defaultCoords.lng,
                     lastUpdated: new Date().toISOString()
                 });
 
-                // Cambiar a pantalla de juego
                 window.switchScreen('gameScreen');
-                window.showAlert("¡Bienvenido!", `Tu misión ha comenzado. ¡Consigue los 3 cofres!`, "🗺️");
+                window.showAlert("¡Bienvenido!", `¡Consigue los ${gameState.treasures.length} cofres con pistas en el patio!`, "🗺️");
 
-                // Iniciar la geolocalización real
                 startTrackingGPS();
-
-                // Activar intervalo periódico de actualización de ubicación en Firebase
                 startLocationTracking();
 
             } catch (err) {
                 console.error("Error al registrar jugador:", err);
                 window.showAlert("Error", "No pudimos iniciar tu sesión de juego correctamente.", "❌");
+            }
+        };
+
+        // --- RENDER DINÁMICO DE LA MOCHILA DE JUGADOR ---
+        window.renderPlayerBackpack = function() {
+            const container = document.getElementById('backpackSlotsContainer');
+            if (!container) return;
+            container.innerHTML = "";
+
+            const count = gameState.treasures.length;
+            for (let i = 0; i < count; i++) {
+                const preset = TREASURE_PRESETS[i % TREASURE_PRESETS.length];
+                const isCaptured = gameState.backpack[i];
+
+                const span = document.createElement('span');
+                span.id = `slot${i}`;
+                span.className = `text-xl md:text-2xl transition duration-300 transform ${isCaptured ? 'scale-110' : 'opacity-20 grayscale scale-90'}`;
+                span.textContent = preset.emoji;
+                span.title = preset.name;
+                container.appendChild(span);
             }
         };
 
@@ -1001,7 +1134,6 @@
                 return;
             }
 
-            // Corrección: Garantizar que la ubicación numérica se actualice de inmediato en gameState
             if (!gameState.playerLat || !gameState.playerLng) {
                 gameState.playerLat = gameState.defaultCoords.lat;
                 gameState.playerLng = gameState.defaultCoords.lng;
@@ -1029,6 +1161,8 @@
                 })
             }).addTo(window.playerMapInstance).bindPopup("<b>Estás aquí</b><br>¡Camina en el mundo real o usa el simulador!");
 
+            // Generar mochila
+            window.renderPlayerBackpack();
             updateGameUI();
         }
 
@@ -1039,6 +1173,8 @@
                 window.showAlert("Sin GPS", "Tu dispositivo no soporta geolocalización. Usaremos el simulador táctil.", "🕹️");
                 return;
             }
+
+            if (watchID) navigator.geolocation.clearWatch(watchID);
 
             watchID = navigator.geolocation.watchPosition(
                 (pos) => {
@@ -1057,7 +1193,7 @@
             );
         }
 
-        // Envío de ubicación periódica (Intervalo de respaldo)
+        // Sincronizar ubicación en Firebase
         function startLocationTracking() {
             if (!db) return;
             if (gameState.activeGameId && currentUser) {
@@ -1079,7 +1215,6 @@
             }
         }
 
-        // Sincronización instantánea de coordenadas a Firebase
         async function savePositionToFirebase() {
             if (!db || !gameState.activeGameId || !gameState.playerID) return;
             try {
@@ -1105,8 +1240,6 @@
             }
 
             updateGameUI();
-            
-            // Sincronizar de inmediato el movimiento para que el profesor lo vea al instante
             savePositionToFirebase();
         }
 
@@ -1114,34 +1247,30 @@
         function updatePlayerMapTreasures() {
             if (!window.playerMapInstance) return;
 
-            // Limpiar marcadores antiguos
             window.playerTreasureMarkers.forEach(m => {
                 if (m) window.playerMapInstance.removeLayer(m);
             });
             window.playerTreasureMarkers = [];
-
-            const emojis = ['🥉', '🥈', '💎'];
-            const names = ['Cofre Bronce 🥉', 'Cofre Plata 🥈', 'Cofre Oro 💎'];
 
             gameState.treasures.forEach((treasure, index) => {
                 if (!treasure) return;
 
                 const isCaptured = gameState.backpack[index];
                 const isActive = gameState.currentTreasureIndex === index;
+                const preset = TREASURE_PRESETS[index % TREASURE_PRESETS.length];
 
                 let htmlContent = "";
                 if (isCaptured) {
                     htmlContent = `<div class="text-2xl filter grayscale opacity-50 relative">
-                        ${emojis[index]}
+                        ${preset.emoji}
                         <span class="absolute -top-1 -right-1 text-xs">✅</span>
                     </div>`;
                 } else if (isActive) {
                     htmlContent = `<div class="text-3xl filter drop-shadow animate-bounce relative">
-                        ${emojis[index]}
+                        ${preset.emoji}
                         <div class="absolute inset-0 bg-yellow-400/30 rounded-full scale-125 -z-10 animate-ping"></div>
                     </div>`;
                 } else {
-                    // Cofre futuro (Aún oculto/bloqueado)
                     htmlContent = `<div class="text-2xl filter blur-[0.5px] opacity-70">🔒</div>`;
                 }
 
@@ -1153,13 +1282,13 @@
                     })
                 }).addTo(window.playerMapInstance);
 
-                let popupText = `<b>${names[index]}</b><br>`;
+                let popupText = `<b>Misión ${index + 1}: ${preset.name}</b><br>`;
                 if (isCaptured) {
                     popupText += "¡Encontrado con éxito! 🎉";
                 } else if (isActive) {
-                    popupText += `<b>¡Busca este cofre ahora!</b><br>Pista: "${treasure.clue || ''}"`;
+                    popupText += `<b>¡Busca este item ahora!</b><br>Pista: "${treasure.clue || ''}"`;
                 } else {
-                    popupText += "Cofre bloqueado. ¡Primero debes descubrir el cofre anterior!";
+                    popupText += "Elemento bloqueado. ¡Primero debes descubrir el cofre anterior!";
                 }
                 marker.bindPopup(popupText);
 
@@ -1169,8 +1298,10 @@
 
         // Actualizar la interfaz, distancias, radar y comprobación de captura
         function updateGameUI() {
+            const totalCofres = gameState.treasures.length;
             const currentIdx = gameState.currentTreasureIndex;
-            if (currentIdx >= 3) {
+            
+            if (currentIdx >= totalCofres) {
                 showVictory();
                 return;
             }
@@ -1178,7 +1309,6 @@
             const targetTreasure = gameState.treasures[currentIdx];
             if (!targetTreasure) return;
 
-            // Si el alumno no ha inicializado su ubicación, usar la ubicación por defecto
             const pLat = gameState.playerLat || gameState.defaultCoords.lat;
             const pLng = gameState.playerLng || gameState.defaultCoords.lng;
 
@@ -1208,15 +1338,14 @@
                 proximityBadge.textContent = "🎁 ¡AQUÍ ESTÁ!";
                 proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-500 text-white shadow-sm animate-bounce";
                 
-                // Si la distancia es menor o igual a 8 metros, capturar automáticamente
                 captureTreasure(currentIdx);
             }
 
             // 4. Mostrar Pista en Pantalla
-            document.getElementById('clueIndex').textContent = `Tesoro ${currentIdx + 1} de 3`;
+            document.getElementById('clueIndex').textContent = `Tesoro ${currentIdx + 1} de ${totalCofres}`;
             document.getElementById('clueText').textContent = `"${targetTreasure.clue || '¡Busca en la dirección de la aguja dorada!'}"`;
 
-            // 5. Alerta de Teletransporte Remoto (solo si están a más de 200 metros del objetivo)
+            // 5. Alerta de Teletransporte Remoto
             const teleportCard = document.getElementById('teleportAlertCard');
             if (distance > 200) {
                 teleportCard.classList.remove('hidden');
@@ -1224,7 +1353,7 @@
                 teleportCard.classList.add('hidden');
             }
 
-            // 6. Actualizar mapa del alumno mostrando los cofres
+            // 6. Actualizar mapa del alumno mostrando los cofres e ítems
             updatePlayerMapTreasures();
         }
 
@@ -1234,24 +1363,22 @@
             gameState.backpack[index] = true;
             gameState.currentTreasureIndex = index + 1;
 
-            // Efectos de celebración por cofre
             confetti({
                 particleCount: 150,
                 spread: 70,
                 origin: { y: 0.6 }
             });
 
-            // Actualizar Mochila Visual
-            const slotIds = ['slot1', 'slot2', 'slot3'];
-            const slot = document.getElementById(slotIds[index]);
+            // Actualizar Mochila Visual Dinámica
+            const slot = document.getElementById(`slot${index}`);
             if (slot) {
                 slot.classList.remove('opacity-20', 'grayscale', 'scale-90');
                 slot.classList.add('scale-110');
             }
 
-            window.showAlert("¡ENCONTRADO!", `¡Excelente trabajo! Guardaste el cofre en tu mochila.`, "🎁");
+            const preset = TREASURE_PRESETS[index % TREASURE_PRESETS.length];
+            window.showAlert("¡ENCONTRADO!", `¡Excelente trabajo! Guardaste ${preset.name} en tu mochila.`, preset.emoji);
 
-            // Guardar en Firestore de forma asíncrona
             if (db) {
                 try {
                     const playerDocRef = doc(db, 'artifacts', window.appId, 'public', 'data', 'players', gameState.playerID);
@@ -1265,11 +1392,10 @@
             }
 
             // Comprobar si ganó
-            if (gameState.currentTreasureIndex >= 3) {
+            if (gameState.currentTreasureIndex >= gameState.treasures.length) {
                 setTimeout(showVictory, 2000);
             } else {
                 updateGameUI();
-                // Ajustar zoom del mapa
                 if (window.playerMapInstance) {
                     window.playerMapInstance.setView([gameState.playerLat, gameState.playerLng], 18);
                 }
@@ -1277,7 +1403,6 @@
         }
 
         function showVictory() {
-            // Explosión de confeti masiva continua
             const end = Date.now() + (4 * 1000);
             const interval = setInterval(function() {
                 if (Date.now() > end) {
@@ -1297,10 +1422,9 @@
         // --- SISTEMA DE SIMULADOR (CAMINADOR VIRTUAL) ---
 
         window.simulateMove = function(latOffset, lngOffset) {
-            // Si el alumno no tiene coordenadas iniciales válidas, tomamos coordenadas base por proximidad
             if (!gameState.playerLat || !gameState.playerLng) {
                 const target = gameState.treasures[gameState.currentTreasureIndex] || gameState.defaultCoords;
-                gameState.playerLat = target.lat - 0.0005; // Un poco desplazado para que camine
+                gameState.playerLat = target.lat - 0.0005; 
                 gameState.playerLng = target.lng - 0.0005;
             }
 
@@ -1309,7 +1433,6 @@
 
             updatePlayerPosition(newLat, newLng);
 
-            // Centrar mapa suavemente
             if (window.playerMapInstance) {
                 window.playerMapInstance.panTo([newLat, newLng]);
             }
@@ -1320,7 +1443,6 @@
             const target = gameState.treasures[currentIdx];
             if (!target) return;
 
-            // Teletransportar a 25 metros al sur-oeste del cofre para dar espacio a usar el simulador
             const offsetLat = -0.00015;
             const offsetLng = -0.00015;
 
@@ -1344,7 +1466,7 @@
             }
         };
 
-        // --- MOCK COMPEDITORES (PARA SIMULAR) ---
+        // --- MOCK COMPETIDORES ---
         let mockInterval = null;
         window.simulateMockCompetitor = function() {
             if (!db) {
@@ -1368,29 +1490,28 @@
 
             const mockPlayerRef = doc(db, 'artifacts', window.appId, 'public', 'data', 'players', mockID);
             
-            // Sincronizar reporte
             if (mockInterval) clearInterval(mockInterval);
             
             let step = 0;
+            const totalTreasures = gameState.treasures.length;
+            const totalSteps = totalTreasures * 8; 
+
             mockInterval = setInterval(async () => {
-                // Caminar hacia el tesoro
                 lat += (t1.lat - lat) * 0.15;
                 lng += (t1.lng - lng) * 0.15;
                 step++;
 
-                let currentTreasureIdx = 0;
-                let backpack = [false, false, false];
-                if (step > 8) {
-                    currentTreasureIdx = 1;
-                    backpack = [true, false, false];
+                let currentTreasureIdx = Math.floor(step / 8);
+                if (currentTreasureIdx >= totalTreasures) currentTreasureIdx = totalTreasures - 1;
+
+                let backpack = new Array(totalTreasures).fill(false);
+                for (let i = 0; i < currentTreasureIdx; i++) {
+                    backpack[i] = true;
                 }
-                if (step > 15) {
-                    currentTreasureIdx = 2;
-                    backpack = [true, true, false];
-                }
-                if (step > 22) {
-                    currentTreasureIdx = 3;
-                    backpack = [true, true, true];
+
+                if (step >= totalSteps) {
+                    backpack.fill(true);
+                    currentTreasureIdx = totalTreasures;
                     clearInterval(mockInterval);
                 }
 
@@ -1435,6 +1556,86 @@
             alertBox.classList.add('-translate-y-40', 'opacity-0', 'pointer-events-none');
         };
 
+        // --- MODAL DE CONFIRMACIÓN PARA TERMINAR JUEGO (SEGURO SIN ALERT() O CONFIRM()) ---
+        let onConfirmAction = null;
+
+        window.showConfirmModal = function(title, msg, onConfirm) {
+            const modal = document.getElementById('confirmActionModal');
+            document.getElementById('confirmModalTitle').textContent = title;
+            document.getElementById('confirmModalMsg').textContent = msg;
+            onConfirmAction = onConfirm;
+            
+            modal.classList.remove('hidden');
+        };
+
+        window.closeConfirmModal = function() {
+            const modal = document.getElementById('confirmActionModal');
+            modal.classList.add('hidden');
+            onConfirmAction = null;
+        };
+
+        // Asignar acción al botón del modal
+        document.getElementById('confirmModalActionButton').addEventListener('click', () => {
+            if (onConfirmAction) {
+                onConfirmAction();
+            }
+            window.closeConfirmModal();
+        });
+
+        // --- FUNCIONES DE SALIDA (PROFESOR / ALUMNO) ---
+
+        window.requestAdminQuit = function() {
+            window.showConfirmModal(
+                "¿Terminar Sesión de Profesor?",
+                "¿Estás seguro de que deseas salir de la consola? Se detendrán todas las simulaciones de robots activos y volverás al menú inicial.",
+                () => {
+                    // Limpiar intervalos de simulación
+                    if (mockInterval) clearInterval(mockInterval);
+                    gameState.gamePIN = null;
+                    gameState.isAdmin = false;
+                    // Limpiar marcadores admin
+                    window.adminMarkers.forEach(m => {
+                        if (m && window.adminMapInstance) window.adminMapInstance.removeLayer(m);
+                    });
+                    window.adminMarkers = [];
+                    window.adminPlayerMarkers = {};
+                    window.switchScreen('setupScreen');
+                    window.showAlert("Sesión Terminada", "Has salido del panel del profesor.", "🧑‍🏫");
+                }
+            );
+        };
+
+        window.requestPlayerQuit = function() {
+            window.showConfirmModal(
+                "¿Terminar tu Juego? 🛑",
+                "Si sales ahora, perderás tu progreso en esta aventura. ¿Deseas volver a la pantalla principal?",
+                () => {
+                    // Detener geolocalización activa
+                    if (watchID) {
+                        navigator.geolocation.clearWatch(watchID);
+                        watchID = null;
+                    }
+                    // Resetear estado jugador
+                    gameState.activeGameId = null;
+                    gameState.currentTreasureIndex = 0;
+                    gameState.backpack = [];
+                    
+                    // Limpiar mapa del jugador
+                    if (window.playerLocationMarker && window.playerMapInstance) {
+                        window.playerMapInstance.removeLayer(window.playerLocationMarker);
+                        window.playerLocationMarker = null;
+                    }
+                    window.playerTreasureMarkers.forEach(m => {
+                        if (m && window.playerMapInstance) window.playerMapInstance.removeLayer(m);
+                    });
+                    window.playerTreasureMarkers = [];
+
+                    window.switchScreen('setupScreen');
+                    window.showAlert("Aventura Cancelada", "Has abandonado la búsqueda del tesoro.", "🎒");
+                }
+            );
+        };
+
         // --- DETECTAR CARGA DE URL CON PIN ---
         function checkUrlParams() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -1447,13 +1648,9 @@
 
         // --- INICIALIZACIÓN DE LA APLICACIÓN ---
         window.onload = function() {
-            // Autenticar de inmediato en Firebase de forma asíncrona
             initAuth();
-            
-            // Comprobar parámetros de URL (QR)
             checkUrlParams();
 
-            // Guardar coordenadas de GPS para el inicio de forma segura
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((pos) => {
                     gameState.playerLat = pos.coords.latitude;
@@ -1463,7 +1660,6 @@
                 }, { enableHighAccuracy: true });
             }
 
-            // Mostrar el botón de simulación de inmediato
             const btnSimulate = document.getElementById('btnSimulate');
             if (btnSimulate) btnSimulate.classList.remove('hidden');
         };
