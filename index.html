@@ -383,13 +383,13 @@
                     </div>
                     <div class="grid grid-cols-3 gap-2 max-w-[240px] mx-auto">
                         <div></div>
-                        <button type="button" onclick="window.simulateMove(0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">ARRIBA ↑</button>
+                        <button type="button" onclick="window.simulateMove(0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans">ARRIBA ↑</button>
                         <div></div>
-                        <button type="button" onclick="window.simulateMove(0, -0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">← IZQ</button>
+                        <button type="button" onclick="window.simulateMove(0, -0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans">← IZQ</button>
                         <div class="flex items-center justify-center text-xs text-blue-500 font-bold bg-blue-50 rounded-xl border border-blue-100 font-sans">Paso</div>
-                        <button type="button" onclick="window.simulateMove(0, 0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">DER →</button>
+                        <button type="button" onclick="window.simulateMove(0, 0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans">DER →</button>
                         <div></div>
-                        <button type="button" onclick="window.simulateMove(-0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">ABAJO ↓</button>
+                        <button type="button" onclick="window.simulateMove(-0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans">ABAJO ↓</button>
                         <div></div>
                     </div>
                 </div>
@@ -505,6 +505,7 @@
         window.adminMarkers = [];
         window.adminPlayerMarkers = {}; // Alumnos en el radar del profe
         window.playerLocationMarker = null;
+        window.playerTreasureMarkers = []; // Cofres en el mapa del participante
 
         // --- SISTEMA DE AUTENTICACIÓN (REGLA 3) ---
         const initAuth = async () => {
@@ -528,9 +529,6 @@
                     gameState.playerID = user.uid;
                     document.getElementById('gameStatusIndicator').textContent = "Conectado al Satélite 🛰️";
                     document.getElementById('gameStatusIndicator').classList.add('bg-emerald-300', 'text-emerald-800');
-                    
-                    // Si el alumno ya está en una partida en curso, iniciar reporte de ubicación
-                    startLocationTracking();
                 } else {
                     document.getElementById('gameStatusIndicator').textContent = "Desconectado 📡";
                 }
@@ -986,6 +984,9 @@
                 // Iniciar la geolocalización real
                 startTrackingGPS();
 
+                // Activar intervalo periódico de actualización de ubicación en Firebase
+                startLocationTracking();
+
             } catch (err) {
                 console.error("Error al registrar jugador:", err);
                 window.showAlert("Error", "No pudimos iniciar tu sesión de juego correctamente.", "❌");
@@ -1000,8 +1001,14 @@
                 return;
             }
 
-            const initialLat = gameState.playerLat || gameState.defaultCoords.lat;
-            const initialLng = gameState.playerLng || gameState.defaultCoords.lng;
+            // Corrección: Garantizar que la ubicación numérica se actualice de inmediato en gameState
+            if (!gameState.playerLat || !gameState.playerLng) {
+                gameState.playerLat = gameState.defaultCoords.lat;
+                gameState.playerLng = gameState.defaultCoords.lng;
+            }
+
+            const initialLat = gameState.playerLat;
+            const initialLng = gameState.playerLng;
 
             window.playerMapInstance = L.map('map').setView([initialLat, initialLng], 18);
 
@@ -1050,9 +1057,9 @@
             );
         }
 
+        // Envío de ubicación periódica (Intervalo de respaldo)
         function startLocationTracking() {
             if (!db) return;
-            // Sincronizar periódicamente la posición a Firestore
             if (gameState.activeGameId && currentUser) {
                 setInterval(async () => {
                     if (!gameState.playerLat || !gameState.playerLng) return;
@@ -1072,6 +1079,23 @@
             }
         }
 
+        // Sincronización instantánea de coordenadas a Firebase
+        async function savePositionToFirebase() {
+            if (!db || !gameState.activeGameId || !gameState.playerID) return;
+            try {
+                const playerDocRef = doc(db, 'artifacts', window.appId, 'public', 'data', 'players', gameState.playerID);
+                await updateDoc(playerDocRef, {
+                    lat: gameState.playerLat,
+                    lng: gameState.playerLng,
+                    currentTreasureIndex: gameState.currentTreasureIndex,
+                    backpack: gameState.backpack,
+                    lastUpdated: new Date().toISOString()
+                });
+            } catch (e) {
+                console.error("Error al sincronizar coordenadas en tiempo real:", e);
+            }
+        }
+
         function updatePlayerPosition(lat, lng) {
             gameState.playerLat = lat;
             gameState.playerLng = lng;
@@ -1081,6 +1105,66 @@
             }
 
             updateGameUI();
+            
+            // Sincronizar de inmediato el movimiento para que el profesor lo vea al instante
+            savePositionToFirebase();
+        }
+
+        // Dibujar/Actualizar la ubicación de los cofres marcados en el mapa del participante
+        function updatePlayerMapTreasures() {
+            if (!window.playerMapInstance) return;
+
+            // Limpiar marcadores antiguos
+            window.playerTreasureMarkers.forEach(m => {
+                if (m) window.playerMapInstance.removeLayer(m);
+            });
+            window.playerTreasureMarkers = [];
+
+            const emojis = ['🥉', '🥈', '💎'];
+            const names = ['Cofre Bronce 🥉', 'Cofre Plata 🥈', 'Cofre Oro 💎'];
+
+            gameState.treasures.forEach((treasure, index) => {
+                if (!treasure) return;
+
+                const isCaptured = gameState.backpack[index];
+                const isActive = gameState.currentTreasureIndex === index;
+
+                let htmlContent = "";
+                if (isCaptured) {
+                    htmlContent = `<div class="text-2xl filter grayscale opacity-50 relative">
+                        ${emojis[index]}
+                        <span class="absolute -top-1 -right-1 text-xs">✅</span>
+                    </div>`;
+                } else if (isActive) {
+                    htmlContent = `<div class="text-3xl filter drop-shadow animate-bounce relative">
+                        ${emojis[index]}
+                        <div class="absolute inset-0 bg-yellow-400/30 rounded-full scale-125 -z-10 animate-ping"></div>
+                    </div>`;
+                } else {
+                    // Cofre futuro (Aún oculto/bloqueado)
+                    htmlContent = `<div class="text-2xl filter blur-[0.5px] opacity-70">🔒</div>`;
+                }
+
+                const marker = L.marker([treasure.lat, treasure.lng], {
+                    icon: L.divIcon({
+                        html: htmlContent,
+                        iconSize: [40, 40],
+                        className: 'flex justify-center items-center'
+                    })
+                }).addTo(window.playerMapInstance);
+
+                let popupText = `<b>${names[index]}</b><br>`;
+                if (isCaptured) {
+                    popupText += "¡Encontrado con éxito! 🎉";
+                } else if (isActive) {
+                    popupText += `<b>¡Busca este cofre ahora!</b><br>Pista: "${treasure.clue || ''}"`;
+                } else {
+                    popupText += "Cofre bloqueado. ¡Primero debes descubrir el cofre anterior!";
+                }
+                marker.bindPopup(popupText);
+
+                window.playerTreasureMarkers.push(marker);
+            });
         }
 
         // Actualizar la interfaz, distancias, radar y comprobación de captura
@@ -1139,6 +1223,9 @@
             } else {
                 teleportCard.classList.add('hidden');
             }
+
+            // 6. Actualizar mapa del alumno mostrando los cofres
+            updatePlayerMapTreasures();
         }
 
         async function captureTreasure(index) {
@@ -1210,7 +1297,7 @@
         // --- SISTEMA DE SIMULADOR (CAMINADOR VIRTUAL) ---
 
         window.simulateMove = function(latOffset, lngOffset) {
-            // Si el alumno no tiene coordenadas iniciales, cargamos la ubicación del tesoro o la por defecto
+            // Si el alumno no tiene coordenadas iniciales válidas, tomamos coordenadas base por proximidad
             if (!gameState.playerLat || !gameState.playerLng) {
                 const target = gameState.treasures[gameState.currentTreasureIndex] || gameState.defaultCoords;
                 gameState.playerLat = target.lat - 0.0005; // Un poco desplazado para que camine
