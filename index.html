@@ -142,7 +142,7 @@
             </div>
 
             <div class="space-y-4 pt-2">
-                <button onclick="switchScreen('adminScreen')" class="w-full btn-game-orange font-bold py-4 px-6 rounded-2xl text-base md:text-lg shadow-lg tracking-wide">
+                <button type="button" onclick="window.switchScreen('adminScreen')" class="w-full btn-game-orange font-bold py-4 px-6 rounded-2xl text-base md:text-lg shadow-lg tracking-wide">
                     👑 MODO PROFESOR (Crear Mapa)
                 </button>
                 
@@ -150,7 +150,7 @@
                     <p class="text-xs md:text-sm text-slate-500 font-extrabold mb-3 uppercase tracking-wider">¿Tienes un código de tus amigos?</p>
                     <div class="flex flex-col sm:flex-row gap-2">
                         <input type="text" id="joinCodeInput" placeholder="PIN" class="w-full sm:w-2/3 bg-slate-100 border-4 border-slate-300 rounded-2xl p-3 text-center uppercase tracking-widest font-extrabold text-2xl text-emerald-600 focus:outline-none focus:border-emerald-500">
-                        <button onclick="joinGameByCode()" class="w-full sm:w-1/3 btn-game-green font-bold rounded-2xl py-3 sm:py-0 px-4 text-base">
+                        <button type="button" onclick="window.joinGameByCode()" class="w-full sm:w-1/3 btn-game-green font-bold rounded-2xl py-3 sm:py-0 px-4 text-base">
                             ¡JUGAR!
                         </button>
                     </div>
@@ -175,23 +175,23 @@
             <div class="space-y-2">
                 <span class="text-xs font-bold text-purple-500 uppercase tracking-widest block">¡Elige tu Personaje! 👇</span>
                 <div class="grid grid-cols-5 gap-2 max-w-[320px] mx-auto" id="avatarGrid">
-                    <button type="button" onclick="selectAvatar('🐆', this)" class="w-11 h-11 text-2xl bg-purple-100 border-4 border-purple-500 rounded-2xl flex items-center justify-center transition active:scale-90">🐆</button>
-                    <button type="button" onclick="selectAvatar('🦊', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦊</button>
-                    <button type="button" onclick="selectAvatar('🦜', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦜</button>
-                    <button type="button" onclick="selectAvatar('🐒', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐒</button>
-                    <button type="button" onclick="selectAvatar('🐸', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐸</button>
-                    <button type="button" onclick="selectAvatar('🦁', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦁</button>
-                    <button type="button" onclick="selectAvatar('🐼', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐼</button>
-                    <button type="button" onclick="selectAvatar('🦄', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦄</button>
-                    <button type="button" onclick="selectAvatar('🐯', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐯</button>
-                    <button type="button" onclick="selectAvatar('🐨', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐨</button>
+                    <button type="button" onclick="window.selectAvatar('🐆', this)" class="w-11 h-11 text-2xl bg-purple-100 border-4 border-purple-500 rounded-2xl flex items-center justify-center transition active:scale-90">🐆</button>
+                    <button type="button" onclick="window.selectAvatar('🦊', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦊</button>
+                    <button type="button" onclick="window.selectAvatar('🦜', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦜</button>
+                    <button type="button" onclick="window.selectAvatar('🐒', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐒</button>
+                    <button type="button" onclick="window.selectAvatar('🐸', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐸</button>
+                    <button type="button" onclick="window.selectAvatar('🦁', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦁</button>
+                    <button type="button" onclick="window.selectAvatar('🐼', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐼</button>
+                    <button type="button" onclick="window.selectAvatar('🦄', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🦄</button>
+                    <button type="button" onclick="window.selectAvatar('🐯', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐯</button>
+                    <button type="button" onclick="window.selectAvatar('🐨', this)" class="w-11 h-11 text-2xl bg-slate-100 border-4 border-transparent rounded-2xl flex items-center justify-center transition active:scale-90">🐨</button>
                 </div>
             </div>
 
             <div class="space-y-3">
                 <input type="text" id="playerNameInput" placeholder="Ej: Los Jaguares 🐆" class="w-full bg-slate-100 border-4 border-purple-300 rounded-2xl p-3 text-center font-bold text-base text-purple-700 focus:outline-none focus:border-purple-500 font-sans">
                 
-                <button onclick="confirmPlayerNameAndStart()" class="w-full btn-game-yellow font-bold py-3.5 rounded-2xl text-base shadow-lg tracking-wide">
+                <button type="button" onclick="window.confirmPlayerNameAndStart()" class="w-full btn-game-yellow font-bold py-3.5 rounded-2xl text-base shadow-lg tracking-wide">
                     ¡Comenzar la Misión! 🚀
                 </button>
             </div>
@@ -205,7 +205,7 @@
                 <h3 class="text-lg md:text-2xl font-bold text-amber-600 flex items-center gap-2">
                     <span>🗺️</span> Consola del Profesor & Radar
                 </h3>
-                <button onclick="switchScreen('setupScreen')" class="text-xs md:text-sm bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-1.5 rounded-full font-bold">← Salir</button>
+                <button type="button" onclick="window.switchScreen('setupScreen')" class="text-xs md:text-sm bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-1.5 rounded-full font-bold">← Salir</button>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -214,15 +214,15 @@
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
                             <span class="text-xs font-extrabold text-slate-400 uppercase tracking-widest">Pasos:</span>
-                            <button onclick="resetAdminMission()" class="text-xs font-bold px-3 py-1 bg-rose-100 hover:bg-rose-200 border border-rose-300 text-rose-700 rounded-lg flex items-center gap-1 transition">
+                            <button type="button" onclick="window.resetAdminMission()" class="text-xs font-bold px-3 py-1 bg-rose-100 hover:bg-rose-200 border border-rose-300 text-rose-700 rounded-lg flex items-center gap-1 transition">
                                 🧹 Nueva Misión
                             </button>
                         </div>
                         
                         <div class="grid grid-cols-3 gap-2">
-                            <button id="btnSetT1" onclick="selectTreasureToPlace(0)" class="py-2.5 px-2 bg-amber-400 border-b-4 border-amber-600 text-slate-950 text-[11px] md:text-xs font-bold rounded-xl transition shadow-md">1. 🥉 Bronce</button>
-                            <button id="btnSetT2" onclick="selectTreasureToPlace(1)" class="py-2.5 px-2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] md:text-xs font-semibold rounded-xl transition">2. 🥈 Plata</button>
-                            <button id="btnSetT3" onclick="selectTreasureToPlace(2)" class="py-2.5 px-2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] md:text-xs font-semibold rounded-xl transition">3. 💎 Oro</button>
+                            <button type="button" id="btnSetT1" onclick="window.selectTreasureToPlace(0)" class="py-2.5 px-2 bg-amber-400 border-b-4 border-amber-600 text-slate-950 text-[11px] md:text-xs font-bold rounded-xl transition shadow-md">1. 🥉 Bronce</button>
+                            <button type="button" id="btnSetT2" onclick="window.selectTreasureToPlace(1)" class="py-2.5 px-2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] md:text-xs font-semibold rounded-xl transition">2. 🥈 Plata</button>
+                            <button type="button" id="btnSetT3" onclick="window.selectTreasureToPlace(2)" class="py-2.5 px-2 bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] md:text-xs font-semibold rounded-xl transition">3. 💎 Oro</button>
                         </div>
 
                         <div class="space-y-3 bg-emerald-50 p-4 rounded-2xl border-2 border-emerald-200">
@@ -235,10 +235,10 @@
                     </div>
 
                     <div class="space-y-2">
-                        <button onclick="publishGame()" class="w-full btn-game-green font-bold py-4 rounded-2xl shadow-lg text-base md:text-lg tracking-wide">
+                        <button type="button" onclick="window.publishGame()" class="w-full btn-game-green font-bold py-4 rounded-2xl shadow-lg text-base md:text-lg tracking-wide">
                             🚀 ¡PUBLICAR EN LA PIZARRA!
                         </button>
-                        <button onclick="simulateMockCompetitor()" id="btnSimulate" class="w-full bg-sky-200 hover:bg-sky-300 text-sky-800 font-extrabold py-2 px-4 rounded-2xl text-xs border-2 border-dashed border-sky-400 hidden">
+                        <button type="button" onclick="window.simulateMockCompetitor()" id="btnSimulate" class="w-full bg-sky-200 hover:bg-sky-300 text-sky-800 font-extrabold py-2 px-4 rounded-2xl text-xs border-2 border-dashed border-sky-400 hidden">
                             🤖 Simular Alumno (Prueba)
                         </button>
                     </div>
@@ -250,7 +250,7 @@
                     <div class="relative font-sans">
                         <div id="adminMap"></div>
                         <div class="absolute bottom-4 right-4 z-[1000]">
-                            <button onclick="centerAdminMap()" class="bg-yellow-400 hover:bg-yellow-300 text-[10px] md:text-xs text-slate-900 font-extrabold px-3 py-2 rounded-xl border-2 border-yellow-600 shadow-md">
+                            <button type="button" onclick="window.centerAdminMap()" class="bg-yellow-400 hover:bg-yellow-300 text-[10px] md:text-xs text-slate-900 font-extrabold px-3 py-2 rounded-xl border-2 border-yellow-600 shadow-md">
                                 📍 Mi Ubicación
                             </button>
                         </div>
@@ -295,10 +295,10 @@
             </div>
 
             <div class="w-full flex flex-col sm:flex-row gap-3">
-                <button onclick="switchScreen('adminScreen')" class="w-full sm:w-1/2 btn-game-orange font-bold py-3.5 rounded-2xl text-xs md:text-sm">
+                <button type="button" onclick="window.switchScreen('adminScreen')" class="w-full sm:w-1/2 btn-game-orange font-bold py-3.5 rounded-2xl text-xs md:text-sm">
                     Radar en Vivo 📡
                 </button>
-                <button onclick="playOwnCreatedGame()" class="w-full sm:w-1/2 btn-game-green font-bold py-3.5 rounded-2xl text-xs md:text-sm">
+                <button type="button" onclick="window.playOwnCreatedGame()" class="w-full sm:w-1/2 btn-game-green font-bold py-3.5 rounded-2xl text-xs md:text-sm">
                     Probar Yo Mismo 🎮
                 </button>
             </div>
@@ -349,7 +349,7 @@
                 <div class="relative w-full">
                     <div id="map"></div>
                     <div class="absolute bottom-4 right-4 z-[1000]">
-                        <button onclick="centerMapOnPlayer()" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 border-2 border-yellow-600 px-4 py-2 rounded-2xl font-bold shadow-md text-[10px] md:text-xs bounce-active font-sans">
+                        <button type="button" onclick="window.centerMapOnPlayer()" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 border-2 border-yellow-600 px-4 py-2 rounded-2xl font-bold shadow-md text-[10px] md:text-xs bounce-active font-sans">
                             🎯 ¿Dónde estoy?
                         </button>
                     </div>
@@ -363,13 +363,13 @@
                     </div>
                     <div class="grid grid-cols-3 gap-2 max-w-[240px] mx-auto">
                         <div></div>
-                        <button onclick="simulateMove(8, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">ARRIBA ↑</button>
+                        <button type="button" onclick="window.simulateMove(8, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">ARRIBA ↑</button>
                         <div></div>
-                        <button onclick="simulateMove(0, -8)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">← IZQ</button>
+                        <button type="button" onclick="window.simulateMove(0, -8)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">← IZQ</button>
                         <div class="flex items-center justify-center text-xs text-blue-500 font-bold bg-blue-50 rounded-xl border border-blue-100 font-sans">8 pasos</div>
-                        <button onclick="simulateMove(0, 8)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">DER →</button>
+                        <button type="button" onclick="window.simulateMove(0, 8)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">DER →</button>
                         <div></div>
-                        <button onclick="simulateMove(-8, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">ABAJO ↓</button>
+                        <button type="button" onclick="window.simulateMove(-8, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all">ABAJO ↓</button>
                         <div></div>
                     </div>
                 </div>
@@ -386,7 +386,7 @@
                 <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-600">¡Victoria!</h2>
                 <p class="text-xs md:text-sm font-semibold text-slate-600">¡Encontraste todos los tesoros!</p>
             </div>
-            <button onclick="location.reload()" class="w-full btn-game-green font-bold py-4 rounded-2xl text-base md:text-lg shadow-lg tracking-wide font-sans">
+            <button type="button" onclick="location.reload()" class="w-full btn-game-green font-bold py-4 rounded-2xl text-base md:text-lg shadow-lg tracking-wide font-sans">
                 ¡Jugar Otra Vez! 🎉
             </button>
         </div>
@@ -399,7 +399,7 @@
             <h4 class="text-sm font-extrabold text-yellow-600" id="alertTitle">Notificación</h4>
             <p class="text-xs text-slate-600 font-bold font-sans" id="alertMsg"></p>
         </div>
-        <button onclick="closeAlert()" class="bg-slate-100 hover:bg-slate-200 p-1 rounded-full border border-slate-300">
+        <button type="button" onclick="window.closeAlert()" class="bg-slate-100 hover:bg-slate-200 p-1 rounded-full border border-slate-300">
             <svg class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
     </div>
@@ -420,12 +420,6 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        let db = null;
-        let auth = null;
-        let isFirebaseAvailable = false;
-        
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'buscando-el-tesoro';
-
         // CONEXIÓN OFICIAL
         const firebaseConfig = {
             apiKey: "AIzaSyC9QjT0XFFwEPfyvuFpH-S9GjLL1s7FsY4",
@@ -436,28 +430,29 @@
             appId: "1:515246812820:web:d782916842801fe4bf8e81"
         };
 
+        window.db = null;
+        window.auth = null;
+        window.isFirebaseAvailable = false;
+        window.appId = 'buscando-el-tesoro';
+
         try {
             const app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
+            window.auth = getAuth(app);
+            window.db = getFirestore(app);
 
             const initAuth = async () => {
                 try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
+                    await signInAnonymously(window.auth);
                 } catch (authError) {
                     console.warn("Fallo de token. Autenticando anónimamente:", authError);
-                    await signInAnonymously(auth);
+                    await signInAnonymously(window.auth);
                 }
             };
 
             initAuth().then(() => {
-                onAuthStateChanged(auth, (user) => {
+                onAuthStateChanged(window.auth, (user) => {
                     if (user) {
-                        isFirebaseAvailable = true;
+                        window.isFirebaseAvailable = true;
                         updateStatusIndicator("🟢 ¡Servidor Conectado!");
                         const simBtn = document.getElementById('btnSimulate');
                         if(simBtn) simBtn.classList.remove('hidden');
@@ -471,53 +466,53 @@
         }
 
         function setupFallbackMode() {
-            isFirebaseAvailable = false;
+            window.isFirebaseAvailable = false;
             updateStatusIndicator("⚠️ Servidor Offline (Modo Local)");
             setTimeout(checkUrlForRoom, 1000);
         }
 
         // --- VARIABLES GLOBALES DEL JUEGO ---
-        let gameMode = 'real';
-        let playerLat = -38.7359; 
-        let playerLng = -72.5904;
-        let watchId = null;
-        let map = null;
-        let playerMarker = null;
-        let audioCtx = null;
-        let currentPlayerName = "Aventurero";
-        let currentPlayerAvatar = "🐆"; 
+        window.gameMode = 'real';
+        window.playerLat = -38.7359; 
+        window.playerLng = -72.5904;
+        window.watchId = null;
+        window.playerMapInstance = null; // RENOMBRADO PARA EVITAR CONFLICTOS CON HTML ID="map"
+        window.playerMarker = null;
+        window.audioCtx = null;
+        window.currentPlayerName = "Aventurero";
+        window.currentPlayerAvatar = "🐆"; 
 
-        let treasures = [
+        window.treasures = [
             { id: 1, coords: { lat: 0, lng: 0 }, clue: "Pista para Cofre 1 🥉", name: "Cofre de Bronce" },
             { id: 2, coords: { lat: 0, lng: 0 }, clue: "Pista para Cofre 2 🥈", name: "Cofre de Plata" },
             { id: 3, coords: { lat: 0, lng: 0 }, clue: "Pista para Diamante 3 💎", name: "Súper Diamante" }
         ];
         
-        let currentTreasureIndex = 0;
-        let activeRoomCode = "DEMO1";
+        window.currentTreasureIndex = 0;
+        window.activeRoomCode = "DEMO1";
         const RANGE_HOT = 12;
         const RANGE_WARM = 28;
         const CAPTURE_DISTANCE = 5;
 
         // Administración
-        let adminMap = null;
-        let adminMarkers = [null, null, null];
-        let competitorMarkers = {}; 
-        let currentSelectedAdminTreasure = 0; 
-        let unsubPlayersListener = null;
+        window.adminMapInstance = null; // RENOMBRADO PARA EVITAR CONFLICTOS CON HTML ID="adminMap"
+        window.adminMarkers = [null, null, null];
+        window.competitorMarkers = {}; 
+        window.currentSelectedAdminTreasure = 0; 
+        window.unsubPlayersListener = null;
 
         function updateStatusIndicator(text) {
             const el = document.getElementById('gameStatusIndicator');
             if(el) el.textContent = text;
         }
 
-        // --- FUNCIONES INTERACTIVAS ---
-        function selectAvatar(avatar, element) {
-            currentPlayerAvatar = avatar;
+        // --- FUNCIONES INTERACTIVAS EXPLICITAS A WINDOW ---
+        window.selectAvatar = function(avatar, element) {
+            window.currentPlayerAvatar = avatar;
             const preview = document.getElementById('selectedAvatarPreview');
             const mascotDisplay = document.getElementById('playerMascotDisplay');
-            if(preview) preview.textContent = currentPlayerAvatar;
-            if(mascotDisplay) mascotDisplay.textContent = currentPlayerAvatar;
+            if(preview) preview.textContent = window.currentPlayerAvatar;
+            if(mascotDisplay) mascotDisplay.textContent = window.currentPlayerAvatar;
 
             const buttons = document.querySelectorAll('#avatarGrid button');
             buttons.forEach(btn => {
@@ -529,23 +524,23 @@
                 element.classList.add('border-purple-500', 'bg-purple-100');
             }
             playBeep('radar');
-        }
+        };
 
-        function resetAdminMission() {
+        window.resetAdminMission = function() {
             const confirmReset = confirm("¿Estás seguro de que quieres limpiar la consola y crear una nueva misión?");
             if (!confirmReset) return;
 
             for(let i = 0; i < 3; i++) {
-                if (adminMarkers[i] && adminMap) adminMap.removeLayer(adminMarkers[i]);
-                adminMarkers[i] = null;
+                if (window.adminMarkers[i] && window.adminMapInstance) window.adminMapInstance.removeLayer(window.adminMarkers[i]);
+                window.adminMarkers[i] = null;
             }
 
-            for (let id in competitorMarkers) {
-                if (adminMap && competitorMarkers[id]) adminMap.removeLayer(competitorMarkers[id]);
+            for (let id in window.competitorMarkers) {
+                if (window.adminMapInstance && window.competitorMarkers[id]) window.adminMapInstance.removeLayer(window.competitorMarkers[id]);
             }
-            competitorMarkers = {};
+            window.competitorMarkers = {};
 
-            treasures = [
+            window.treasures = [
                 { id: 1, coords: { lat: 0, lng: 0 }, clue: "Pista para Cofre 1 🥉", name: "Cofre de Bronce" },
                 { id: 2, coords: { lat: 0, lng: 0 }, clue: "Pista para Cofre 2 🥈", name: "Cofre de Plata" },
                 { id: 3, coords: { lat: 0, lng: 0 }, clue: "Pista para Diamante 3 💎", name: "Súper Diamante" }
@@ -554,11 +549,11 @@
             const input = document.getElementById('clueSettingInput');
             if(input) input.value = "";
             
-            selectTreasureToPlace(0);
+            window.selectTreasureToPlace(0);
 
-            if (unsubPlayersListener) {
-                unsubPlayersListener();
-                unsubPlayersListener = null;
+            if (window.unsubPlayersListener) {
+                window.unsubPlayersListener();
+                window.unsubPlayersListener = null;
             }
 
             const container = document.getElementById('livePlayersContainer');
@@ -567,10 +562,10 @@
             if(count) count.textContent = "0";
 
             playBeep('found');
-            showAlert("Consola Reiniciada", "¡Listo! El mapa está limpio.", "🧹");
-        }
+            window.showAlert("Consola Reiniciada", "¡Listo! El mapa está limpio.", "🧹");
+        };
 
-        function switchScreen(screenId) {
+        window.switchScreen = function(screenId) {
             const screens = ['setupScreen', 'nameInputScreen', 'adminScreen', 'shareScreen', 'gameScreen', 'victoryScreen'];
             screens.forEach(id => {
                 const el = document.getElementById(id);
@@ -581,14 +576,14 @@
             if (target) target.classList.remove('hidden');
 
             setTimeout(() => {
-                if (screenId === 'adminScreen' && adminMap) adminMap.invalidateSize();
-                else if (screenId === 'gameScreen' && map) map.invalidateSize();
+                if (screenId === 'adminScreen' && window.adminMapInstance) window.adminMapInstance.invalidateSize();
+                else if (screenId === 'gameScreen' && window.playerMapInstance) window.playerMapInstance.invalidateSize();
             }, 300);
 
-            if (screenId === 'adminScreen' && !adminMap) {
+            if (screenId === 'adminScreen' && !window.adminMapInstance) {
                 setTimeout(initAdminMap, 100);
             }
-        }
+        };
 
         function getSmartLocation(successCallback, errorCallback) {
             updateStatusIndicator("🛰️ Buscando Señal GPS...");
@@ -621,29 +616,29 @@
         }
 
         function initAdminMap() {
-            if (adminMap) {
-                adminMap.invalidateSize();
-                if (playerLat !== null && playerLng !== null) adminMap.setView([playerLat, playerLng], 17);
+            if (window.adminMapInstance) {
+                window.adminMapInstance.invalidateSize();
+                if (window.playerLat !== null && window.playerLng !== null) window.adminMapInstance.setView([window.playerLat, window.playerLng], 17);
                 return;
             }
 
-            playerLat = -38.7359; 
-            playerLng = -72.5904;
+            window.playerLat = -38.7359; 
+            window.playerLng = -72.5904;
             buildAdminMap();
 
             getSmartLocation(
                 (pos) => {
-                    playerLat = pos.coords.latitude;
-                    playerLng = pos.coords.longitude;
-                    if (adminMap) {
-                        adminMap.setView([playerLat, playerLng], 17);
+                    window.playerLat = pos.coords.latitude;
+                    window.playerLng = pos.coords.longitude;
+                    if (window.adminMapInstance) {
+                        window.adminMapInstance.setView([window.playerLat, window.playerLng], 17);
                         const realProfIcon = L.divIcon({
                             className: 'custom-real-prof',
                             html: `<div class="text-xl">📍</div>`,
                             iconSize: [20, 20],
                             iconAnchor: [10, 20]
                         });
-                        L.marker([playerLat, playerLng], { icon: realProfIcon }).addTo(adminMap);
+                        L.marker([window.playerLat, window.playerLng], { icon: realProfIcon }).addTo(window.adminMapInstance);
                     }
                 },
                 (err) => console.log("Iniciado en Temuco por defecto.")
@@ -651,9 +646,9 @@
         }
 
         function buildAdminMap() {
-            if (adminMap) return;
-            adminMap = L.map('adminMap', { center: [playerLat, playerLng], zoom: 17, zoomControl: true });
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap &copy; CARTO' }).addTo(adminMap);
+            if (window.adminMapInstance) return;
+            window.adminMapInstance = L.map(document.getElementById('adminMap'), { center: [window.playerLat, window.playerLng], zoom: 17, zoomControl: true });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap &copy; CARTO' }).addTo(window.adminMapInstance);
 
             const profIcon = L.divIcon({
                 className: 'custom-prof-icon',
@@ -661,19 +656,19 @@
                 iconSize: [24, 24],
                 iconAnchor: [12, 12]
             });
-            L.marker([playerLat, playerLng], { icon: profIcon }).addTo(adminMap);
+            L.marker([window.playerLat, window.playerLng], { icon: profIcon }).addTo(window.adminMapInstance);
 
-            adminMap.on('click', function(e) {
+            window.adminMapInstance.on('click', function(e) {
                 const { lat, lng } = e.latlng;
-                placeAdminMarker(currentSelectedAdminTreasure, lat, lng);
+                placeAdminMarker(window.currentSelectedAdminTreasure, lat, lng);
             });
 
-            setTimeout(() => { if (adminMap) adminMap.invalidateSize(); }, 300);
-            selectTreasureToPlace(0);
+            setTimeout(() => { if (window.adminMapInstance) window.adminMapInstance.invalidateSize(); }, 300);
+            window.selectTreasureToPlace(0);
         }
 
-        function selectTreasureToPlace(index) {
-            currentSelectedAdminTreasure = index;
+        window.selectTreasureToPlace = function(index) {
+            window.currentSelectedAdminTreasure = index;
             for(let i = 0; i < 3; i++) {
                 const btn = document.getElementById(`btnSetT${i+1}`);
                 if(btn) {
@@ -687,13 +682,13 @@
             if(titleEl) titleEl.textContent = clueTitles[index];
             
             const inputEl = document.getElementById('clueSettingInput');
-            if(inputEl) inputEl.value = treasures[index].clue || "";
-        }
+            if(inputEl) inputEl.value = window.treasures[index].clue || "";
+        };
 
         function placeAdminMarker(index, lat, lng) {
-            treasures[index].coords = { lat, lng };
+            window.treasures[index].coords = { lat, lng };
 
-            if (adminMarkers[index]) adminMap.removeLayer(adminMarkers[index]);
+            if (window.adminMarkers[index]) window.adminMapInstance.removeLayer(window.adminMarkers[index]);
 
             const icons = ['🥉', '🥈', '💎'];
             const markerIcon = L.divIcon({
@@ -703,31 +698,31 @@
                 iconAnchor: [15, 15]
             });
 
-            adminMarkers[index] = L.marker([lat, lng], { icon: markerIcon }).addTo(adminMap);
+            window.adminMarkers[index] = L.marker([lat, lng], { icon: markerIcon }).addTo(window.adminMapInstance);
             playBeep('radar');
-            showAlert(`¡Cofre ${index + 1} escondido!`, "Has guardado su posición mágica en el mapa.", "📍");
+            window.showAlert(`¡Cofre ${index + 1} escondido!`, "Has guardado su posición mágica en el mapa.", "📍");
         }
 
-        function centerAdminMap() {
-            if (adminMap && playerLat && playerLng) adminMap.setView([playerLat, playerLng], 17);
-        }
+        window.centerAdminMap = function() {
+            if (window.adminMapInstance && window.playerLat && window.playerLng) window.adminMapInstance.setView([window.playerLat, window.playerLng], 17);
+        };
 
-        async function publishGame() {
+        window.publishGame = async function() {
             for (let i = 0; i < 3; i++) {
-                if (!treasures[i].coords || treasures[i].coords.lat === 0) {
-                    showAlert("¡Falta un paso!", `Por favor, esconde el cofre ${i + 1} tocando en el mapa.`, "⚠️");
+                if (!window.treasures[i].coords || window.treasures[i].coords.lat === 0) {
+                    window.showAlert("¡Falta un paso!", `Por favor, esconde el cofre ${i + 1} tocando en el mapa.`, "⚠️");
                     return;
                 }
             }
 
             const roomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
-            activeRoomCode = roomCode;
+            window.activeRoomCode = roomCode;
 
-            const roomData = { code: roomCode, createdAt: new Date().toISOString(), treasures: treasures };
+            const roomData = { code: roomCode, createdAt: new Date().toISOString(), treasures: window.treasures };
 
-            if (isFirebaseAvailable) {
+            if (window.isFirebaseAvailable) {
                 try {
-                    const roomRef = doc(db, 'artifacts', appId, 'public', 'data', 'rooms', roomCode);
+                    const roomRef = doc(window.db, 'artifacts', window.appId, 'public', 'data', 'rooms', roomCode);
                     await setDoc(roomRef, roomData);
                     startRealtimePlayersListener(roomCode);
                 } catch (e) {
@@ -744,18 +739,18 @@
             const shareQr = document.getElementById('shareQR');
             if(shareQr) shareQr.src = qrUrl;
 
-            switchScreen('shareScreen');
+            window.switchScreen('shareScreen');
             playBeep('victory');
-            showAlert("¡Listo!", "Tu misión ha sido guardada en la base de datos.", "✨");
-        }
+            window.showAlert("¡Listo!", "Tu misión ha sido guardada en la base de datos.", "✨");
+        };
 
         function startRealtimePlayersListener(roomCode) {
-            if (unsubPlayersListener) unsubPlayersListener();
-            if (!isFirebaseAvailable) return;
+            if (window.unsubPlayersListener) window.unsubPlayersListener();
+            if (!window.isFirebaseAvailable) return;
 
-            const playersCol = collection(db, 'artifacts', appId, 'public', 'data', 'players');
+            const playersCol = collection(window.db, 'artifacts', window.appId, 'public', 'data', 'players');
             
-            unsubPlayersListener = onSnapshot(playersCol, (snapshot) => {
+            window.unsubPlayersListener = onSnapshot(playersCol, (snapshot) => {
                 const activePlayers = [];
                 snapshot.forEach((doc) => {
                     const data = doc.data();
@@ -770,10 +765,10 @@
             const countBadge = document.getElementById('livePlayersCount');
             if(!container) return;
 
-            for (let id in competitorMarkers) {
-                if (adminMap && competitorMarkers[id]) adminMap.removeLayer(competitorMarkers[id]);
+            for (let id in window.competitorMarkers) {
+                if (window.adminMapInstance && window.competitorMarkers[id]) window.adminMapInstance.removeLayer(window.competitorMarkers[id]);
             }
-            competitorMarkers = {};
+            window.competitorMarkers = {};
 
             if (players.length === 0) {
                 container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-6">Ningún equipo conectado aún.</p>`;
@@ -806,7 +801,7 @@
                 `;
                 container.appendChild(playerRow);
 
-                if (adminMap && player.lat && player.lng) {
+                if (window.adminMapInstance && player.lat && player.lng) {
                     const studentIcon = L.divIcon({
                         className: 'custom-student-marker',
                         html: `
@@ -818,23 +813,24 @@
                         iconSize: [80, 50],
                         iconAnchor: [40, 45]
                     });
-                    competitorMarkers[player.id] = L.marker([player.lat, player.lng], { icon: studentIcon }).addTo(adminMap);
+                    window.competitorMarkers[player.id] = L.marker([player.lat, player.lng], { icon: studentIcon }).addTo(window.adminMapInstance);
                 }
             });
         }
 
         window.simulateMockCompetitor = function() {
-            if (!isFirebaseAvailable || !auth.currentUser) return;
-            simCount++;
+            if (!window.isFirebaseAvailable || !window.auth.currentUser) return;
+            let simCount = Math.floor(Math.random() * 100);
+            
             const mockId = `mock_student_${simCount}`;
             const mockName = `Equipo Simulado ${simCount} 🦊`;
             const avatarsList = ["🐆", "🦊", "🦜", "🐒", "🐸", "🦁", "🐼", "🦄", "🐯", "🐨"];
             const mockAvatar = avatarsList[Math.floor(Math.random() * avatarsList.length)];
-            const offsetPos = addOffset(playerLat || -38.7359, playerLng || -72.5904, (Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80);
+            const offsetPos = addOffset(window.playerLat || -38.7359, window.playerLng || -72.5904, (Math.random() - 0.5) * 80, (Math.random() - 0.5) * 80);
             
-            const playerRef = doc(db, 'artifacts', appId, 'public', 'data', 'players', mockId);
+            const playerRef = doc(window.db, 'artifacts', window.appId, 'public', 'data', 'players', mockId);
             setDoc(playerRef, {
-                roomCode: activeRoomCode,
+                roomCode: window.activeRoomCode,
                 playerName: mockName,
                 avatar: mockAvatar,
                 lat: offsetPos.lat,
@@ -842,30 +838,30 @@
                 currentTreasure: Math.floor(Math.random() * 3),
                 lastUpdate: new Date().toISOString()
             }, { merge: true });
-            showAlert("Simulando Alumno", `Se agregó a "${mockName}" al radar en vivo.`, "🤖");
+            window.showAlert("Simulando Alumno", `Se agregó a "${mockName}" al radar en vivo.`, "🤖");
         };
 
-        function playOwnCreatedGame() {
+        window.playOwnCreatedGame = function() {
             const sim = document.getElementById('simulatorPanel');
             if (sim) sim.classList.remove('hidden');
-            startGame(activeRoomCode, treasures);
-        }
+            window.startGame(window.activeRoomCode, window.treasures);
+        };
 
-        async function joinGameByCode() {
+        window.joinGameByCode = async function() {
             const codeInput = document.getElementById('joinCodeInput');
             if (!codeInput) return;
             const code = codeInput.value.trim().toUpperCase();
             if (!code) {
-                showAlert("Campo vacío", "Ingresa un código PIN de 6 letras para empezar.", "⚠️");
+                window.showAlert("Campo vacío", "Ingresa un código PIN de 6 letras para empezar.", "⚠️");
                 return;
             }
 
             updateStatusIndicator("Buscando aventura...");
             let roomData = null;
 
-            if (isFirebaseAvailable) {
+            if (window.isFirebaseAvailable) {
                 try {
-                    const roomRef = doc(db, 'artifacts', appId, 'public', 'data', 'rooms', code);
+                    const roomRef = doc(window.db, 'artifacts', window.appId, 'public', 'data', 'rooms', code);
                     const roomSnap = await getDoc(roomRef);
                     if (roomSnap.exists()) roomData = roomSnap.data();
                 } catch (e) {
@@ -879,31 +875,36 @@
             }
 
             if (roomData) {
-                activeRoomCode = code;
-                treasures = roomData.treasures;
+                window.activeRoomCode = code;
+                window.treasures = roomData.treasures;
                 updateStatusIndicator("¡Aventura Encontrada! 🎒");
-                switchScreen('nameInputScreen');
+                window.switchScreen('nameInputScreen');
             } else {
-                showAlert("Aventura no encontrada", "Pídele al profesor el código correcto.", "❌");
+                window.showAlert("Aventura no encontrada", "Pídele al profesor el código correcto.", "❌");
                 updateStatusIndicator("Código incorrecto");
             }
-        }
+        };
 
-        function confirmPlayerNameAndStart() {
-            const nameInputEl = document.getElementById('playerNameInput');
-            if (!nameInputEl) return;
-            const nameInput = nameInputEl.value.trim();
-            
-            if (!nameInput) {
-                showAlert("Ingresa tu Nombre", "Dinos cómo se llama tu equipo o explorador.", "🎒");
-                return;
+        window.confirmPlayerNameAndStart = function() {
+            try {
+                const nameInputEl = document.getElementById('playerNameInput');
+                if (!nameInputEl) return;
+                const nameInput = nameInputEl.value.trim();
+                
+                if (!nameInput) {
+                    window.showAlert("Ingresa tu Nombre", "Dinos cómo se llama tu equipo o explorador.", "🎒");
+                    return;
+                }
+                
+                window.currentPlayerName = nameInput;
+                window.showAlert("¡Todo Listo!", `¡Hola ${window.currentPlayerName}! Iniciando aventura...`, window.currentPlayerAvatar);
+                
+                window.startGame(window.activeRoomCode, window.treasures);
+            } catch (err) {
+                console.error("Error al comenzar:", err);
+                alert("Ocurrió un error al cargar el mapa: " + err.message);
             }
-            
-            currentPlayerName = nameInput;
-            showAlert("¡Todo Listo!", `¡Hola ${currentPlayerName}! Iniciando aventura...`, currentPlayerAvatar);
-            
-            startGame(activeRoomCode, treasures);
-        }
+        };
 
         function checkUrlForRoom() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -911,14 +912,14 @@
             if (roomCode) {
                 const input = document.getElementById('joinCodeInput');
                 if(input) input.value = roomCode;
-                joinGameByCode();
+                window.joinGameByCode();
             }
         }
 
-        function startGame(code, loadedTreasures) {
-            activeRoomCode = code;
-            treasures = loadedTreasures;
-            currentTreasureIndex = 0;
+        window.startGame = function(code, loadedTreasures) {
+            window.activeRoomCode = code;
+            window.treasures = loadedTreasures;
+            window.currentTreasureIndex = 0;
 
             const ftr = document.getElementById('activePINFooter');
             if(ftr) ftr.textContent = `Misión: ${code} | Mochila:`;
@@ -926,7 +927,7 @@
             const sgm = document.getElementById('statGameMode');
             if(sgm) sgm.textContent = code;
             
-            switchScreen('gameScreen');
+            window.switchScreen('gameScreen');
             updateStatusIndicator("Cargando tu mapa de expedición...");
 
             setTimeout(() => {
@@ -934,30 +935,30 @@
 
                 getSmartLocation(
                     (pos) => {
-                        playerLat = pos.coords.latitude;
-                        playerLng = pos.coords.longitude;
-                        updatePlayerPosition(playerLat, playerLng); 
-                        centerMapOnPlayer();
+                        window.playerLat = pos.coords.latitude;
+                        window.playerLng = pos.coords.longitude;
+                        updatePlayerPosition(window.playerLat, window.playerLng); 
+                        window.centerMapOnPlayer();
                         startContinuousTracking();
                     },
                     (err) => {
                         console.warn("Usando Temuco y activando simulador.");
                         const sim = document.getElementById('simulatorPanel');
                         if (sim) sim.classList.remove('hidden');
-                        updatePlayerPosition(playerLat, playerLng);
+                        updatePlayerPosition(window.playerLat, window.playerLng);
                     }
                 );
             }, 50);
-        }
+        };
 
         function startContinuousTracking() {
-            if (watchId && navigator.geolocation) navigator.geolocation.clearWatch(watchId);
+            if (window.watchId && navigator.geolocation) navigator.geolocation.clearWatch(window.watchId);
             if (navigator.geolocation) {
-                watchId = navigator.geolocation.watchPosition(
+                window.watchId = navigator.geolocation.watchPosition(
                     (pos) => {
-                        playerLat = pos.coords.latitude;
-                        playerLng = pos.coords.longitude;
-                        updatePlayerPosition(playerLat, playerLng);
+                        window.playerLat = pos.coords.latitude;
+                        window.playerLng = pos.coords.longitude;
+                        updatePlayerPosition(window.playerLat, window.playerLng);
                     },
                     (err) => console.log("Manteniendo GPS activo..."),
                     { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
@@ -966,19 +967,19 @@
         }
 
         function initPlayerMap() {
-            if (map) {
-                map.remove();
-                map = null;
+            if (window.playerMapInstance) {
+                window.playerMapInstance.remove();
+                window.playerMapInstance = null;
             }
 
-            map = L.map('map', { center: [playerLat, playerLng], zoom: 18, zoomControl: false });
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+            window.playerMapInstance = L.map(document.getElementById('map'), { center: [window.playerLat, window.playerLng], zoom: 18, zoomControl: false });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap' }).addTo(window.playerMapInstance);
 
             const playerIcon = L.divIcon({
                 className: 'custom-div-icon',
                 html: `
                     <div class="student-avatar-marker">
-                        <div class="avatar-bubble">${currentPlayerAvatar}</div>
+                        <div class="avatar-bubble">${window.currentPlayerAvatar}</div>
                         <div class="avatar-name-badge">¡Tú!</div>
                     </div>
                 `,
@@ -986,9 +987,9 @@
                 iconAnchor: [40, 45]
             });
 
-            playerMarker = L.marker([playerLat, playerLng], { icon: playerIcon }).addTo(map);
+            window.playerMarker = L.marker([window.playerLat, window.playerLng], { icon: playerIcon }).addTo(window.playerMapInstance);
 
-            treasures.forEach((tr) => {
+            window.treasures.forEach((tr) => {
                 if (tr && tr.coords && typeof tr.coords.lat === 'number' && typeof tr.coords.lng === 'number' && tr.coords.lat !== 0) {
                     L.circle([tr.coords.lat, tr.coords.lng], {
                         color: '#10b981',
@@ -996,29 +997,29 @@
                         fillOpacity: 0.1,
                         radius: 12,
                         dashArray: '4, 4'
-                    }).addTo(map);
+                    }).addTo(window.playerMapInstance);
                 }
             });
 
-            setTimeout(() => { if (map) map.invalidateSize(); }, 300);
+            setTimeout(() => { if (window.playerMapInstance) window.playerMapInstance.invalidateSize(); }, 300);
             updateGameUI();
         }
 
         function updatePlayerPosition(lat, lng) {
-            playerLat = lat;
-            playerLng = lng;
-            if (playerMarker) playerMarker.setLatLng([lat, lng]);
+            window.playerLat = lat;
+            window.playerLng = lng;
+            if (window.playerMarker) window.playerMarker.setLatLng([lat, lng]);
 
-            if (isFirebaseAvailable && auth && auth.currentUser && auth.currentUser.uid) {
+            if (window.isFirebaseAvailable && window.auth && window.auth.currentUser && window.auth.currentUser.uid) {
                 try {
-                    const playerRef = doc(db, 'artifacts', appId, 'public', 'data', 'players', auth.currentUser.uid);
+                    const playerRef = doc(window.db, 'artifacts', window.appId, 'public', 'data', 'players', window.auth.currentUser.uid);
                     setDoc(playerRef, {
-                        roomCode: activeRoomCode,
-                        playerName: currentPlayerName,
-                        avatar: currentPlayerAvatar,
+                        roomCode: window.activeRoomCode,
+                        playerName: window.currentPlayerName,
+                        avatar: window.currentPlayerAvatar,
                         lat: lat,
                         lng: lng,
-                        currentTreasure: currentTreasureIndex,
+                        currentTreasure: window.currentTreasureIndex,
                         lastUpdate: new Date().toISOString()
                     }, { merge: true });
                 } catch (e) {
@@ -1029,12 +1030,12 @@
         }
 
         function updateGameUI() {
-            if (currentTreasureIndex >= treasures.length) {
+            if (window.currentTreasureIndex >= window.treasures.length) {
                 triggerVictory();
                 return;
             }
 
-            const activeTreasure = treasures[currentTreasureIndex];
+            const activeTreasure = window.treasures[window.currentTreasureIndex];
             
             if (!activeTreasure || !activeTreasure.coords || typeof activeTreasure.coords.lat !== 'number' || typeof activeTreasure.coords.lng !== 'number' || activeTreasure.coords.lat === 0) {
                 const dv = document.getElementById('distanceValue');
@@ -1046,16 +1047,16 @@
                     pt.textContent = "ESPERANDO COORDENADAS 🧭";
                     pt.className = "text-xs font-bold px-3 py-1 rounded-full bg-slate-400 text-white shadow-sm";
                 }
-                if (ci) ci.textContent = `Buscando Tesoro ${currentTreasureIndex + 1} de 3`;
+                if (ci) ci.textContent = `Buscando Tesoro ${window.currentTreasureIndex + 1} de 3`;
                 if (ct) ct.textContent = "El profesor aún no ha guardado la ubicación de este cofre.";
                 return;
             }
 
-            const distance = getDistance(playerLat, playerLng, activeTreasure.coords.lat, activeTreasure.coords.lng);
+            const distance = getDistance(window.playerLat, window.playerLng, activeTreasure.coords.lat, activeTreasure.coords.lng);
             const dv = document.getElementById('distanceValue');
             if (dv) dv.textContent = Math.round(distance);
 
-            const bearing = getBearing(playerLat, playerLng, activeTreasure.coords.lat, activeTreasure.coords.lng);
+            const bearing = getBearing(window.playerLat, window.playerLng, activeTreasure.coords.lat, activeTreasure.coords.lng);
             const rp = document.getElementById('radarPointer');
             if (rp) rp.style.transform = `rotate(${bearing}deg)`;
 
@@ -1084,7 +1085,7 @@
 
             const ci = document.getElementById('clueIndex');
             const ct = document.getElementById('clueText');
-            if(ci) ci.textContent = `Buscando Tesoro ${currentTreasureIndex + 1} de 3`;
+            if(ci) ci.textContent = `Buscando Tesoro ${window.currentTreasureIndex + 1} de 3`;
             if(ct) ct.textContent = `"${activeTreasure.clue || 'Pista oculta.'}"`;
         }
 
@@ -1104,9 +1105,9 @@
         function captureTreasure() {
             playBeep('found');
             confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-            showAlert("¡SÚPER BIEN!", `Has descubierto: ${treasures[currentTreasureIndex].name} 🎉`, "💎");
+            window.showAlert("¡SÚPER BIEN!", `Has descubierto: ${window.treasures[window.currentTreasureIndex].name} 🎉`, "💎");
 
-            const slot = document.getElementById(`slot${currentTreasureIndex + 1}`);
+            const slot = document.getElementById(`slot${window.currentTreasureIndex + 1}`);
             if(slot) {
                 slot.classList.remove('opacity-20', 'grayscale');
                 slot.classList.add('opacity-100', 'scale-125');
@@ -1118,17 +1119,17 @@
                 iconSize: [24, 24],
                 iconAnchor: [12, 12]
             });
-            L.marker([treasures[currentTreasureIndex].coords.lat, treasures[currentTreasureIndex].coords.lng], { icon: goldChestIcon }).addTo(map);
+            L.marker([window.treasures[window.currentTreasureIndex].coords.lat, window.treasures[window.currentTreasureIndex].coords.lng], { icon: goldChestIcon }).addTo(window.playerMapInstance);
 
-            currentTreasureIndex++;
-            updatePlayerPosition(playerLat, playerLng);
+            window.currentTreasureIndex++;
+            updatePlayerPosition(window.playerLat, window.playerLng);
 
-            if (currentTreasureIndex >= treasures.length) setTimeout(triggerVictory, 1500);
+            if (window.currentTreasureIndex >= window.treasures.length) setTimeout(triggerVictory, 1500);
             else updateGameUI();
         }
 
         function triggerVictory() {
-            if (watchId && navigator.geolocation) navigator.geolocation.clearWatch(watchId);
+            if (window.watchId && navigator.geolocation) navigator.geolocation.clearWatch(window.watchId);
             
             const end = Date.now() + (3 * 1000);
             (function frame() {
@@ -1138,7 +1139,7 @@
             }());
 
             playBeep('victory');
-            switchScreen('victoryScreen');
+            window.switchScreen('victoryScreen');
         }
 
         function getDistance(lat1, lon1, lat2, lon2) {
@@ -1170,30 +1171,38 @@
             return { lat: lat + (dLat * 180 / Math.PI), lng: lon + (dLon * 180 / Math.PI) };
         }
 
-        function centerMapOnPlayer() {
-            if (map && playerLat !== null && playerLng !== null) map.setView([playerLat, playerLng], 18, { animate: true });
-        }
+        window.centerMapOnPlayer = function() {
+            if (window.playerMapInstance && window.playerLat !== null && window.playerLng !== null) window.playerMapInstance.setView([window.playerLat, window.playerLng], 18, { animate: true });
+        };
 
-        function simulateMove(dn, de) {
-            if (playerLat === null || playerLng === null) return;
-            const newPos = addOffset(playerLat, playerLng, dn, de);
+        window.simulateMove = function(dn, de) {
+            if (window.playerLat === null || window.playerLng === null) return;
+            const newPos = addOffset(window.playerLat, window.playerLng, dn, de);
             updatePlayerPosition(newPos.lat, newPos.lng);
-            centerMapOnPlayer();
-        }
+            window.centerMapOnPlayer();
+        };
 
-        // Exponer explícitamente las funciones al contexto global (window)
-        window.switchScreen = switchScreen;
-        window.selectAvatar = selectAvatar;
-        window.resetAdminMission = resetAdminMission;
-        window.publishGame = publishGame;
-        window.simulateMockCompetitor = simulateMockCompetitor;
-        window.playOwnCreatedGame = playOwnCreatedGame;
-        window.joinGameByCode = joinGameByCode;
-        window.confirmPlayerNameAndStart = confirmPlayerNameAndStart;
-        window.centerMapOnPlayer = centerMapOnPlayer;
-        window.simulateMove = simulateMove;
-        window.centerAdminMap = centerAdminMap;
-        window.selectTreasureToPlace = selectTreasureToPlace;
+        window.showAlert = function(title, message, icon = '🧭') {
+            const alertBox = document.getElementById('customAlert');
+            document.getElementById('alertTitle').textContent = title;
+            document.getElementById('alertMsg').textContent = message;
+            document.getElementById('alertIcon').textContent = icon;
+            alertBox.classList.remove('-translate-y-40', 'opacity-0', 'pointer-events-none');
+            alertBox.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(window.closeAlert, 4000);
+        };
+
+        window.closeAlert = function() {
+            const alertBox = document.getElementById('customAlert');
+            alertBox.classList.remove('translate-y-0', 'opacity-100');
+            alertBox.classList.add('-translate-y-40', 'opacity-0', 'pointer-events-none');
+        };
+
+        // Escuchador de redimensionamiento
+        window.addEventListener('resize', () => {
+            if (window.playerMapInstance) window.playerMapInstance.invalidateSize();
+            if (window.adminMapInstance) window.adminMapInstance.invalidateSize();
+        });
 
     </script>
 </body>
