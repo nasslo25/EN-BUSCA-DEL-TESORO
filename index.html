@@ -249,9 +249,13 @@
                     <span class="text-xs font-extrabold text-slate-400 uppercase tracking-widest block">📍 Radar (Toca para esconder cofres)</span>
                     <div class="relative font-sans">
                         <div id="adminMap"></div>
-                        <div class="absolute bottom-4 right-4 z-[1000]">
+                        <div class="absolute bottom-4 right-4 z-[1000] flex flex-col gap-2">
                             <button type="button" onclick="window.centerAdminMap()" class="bg-yellow-400 hover:bg-yellow-300 text-[10px] md:text-xs text-slate-900 font-extrabold px-3 py-2 rounded-xl border-2 border-yellow-600 shadow-md">
                                 📍 Mi Ubicación
+                            </button>
+                            <!-- Botón para enfocar de forma inteligente todos los alumnos conectados -->
+                            <button type="button" id="btnFitCompetitors" onclick="window.fitCompetitorsBounds()" class="bg-emerald-500 hover:bg-emerald-450 text-[10px] md:text-xs text-white font-extrabold px-3 py-2 rounded-xl border-2 border-emerald-600 shadow-md hidden">
+                                🔍 Enfocar Alumnos
                             </button>
                         </div>
                     </div>
@@ -318,6 +322,22 @@
                         <span class="text-[10px] md:text-xs font-bold text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full uppercase tracking-widest" id="clueIndex">Tesoro 1 de 3</span>
                         <span id="proximityText" class="text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-blue-500 text-white shadow-sm animate-pulse">FRÍO ❄️</span>
                     </div>
+                    
+                    <!-- Tarjeta Inteligente de Teletransporte para Pruebas Remotas -->
+                    <div id="teleportAlertCard" class="hidden mb-3 bg-amber-500/95 backdrop-blur-md border-2 border-yellow-300 text-white p-3 rounded-2xl shadow-xl flex flex-col gap-2">
+                        <div class="flex items-start gap-2">
+                            <span class="text-xl">🗺️</span>
+                            <div>
+                                <h4 class="text-[11px] font-bold uppercase tracking-wider text-yellow-100">¡Estás lejos del tesoro!</h4>
+                                <p class="text-[10px] font-medium text-amber-50 leading-tight">Detectamos que estás en otra ubicación. ¿Quieres teletransportarte virtualmente para probar la misión con el caminador?</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 justify-end">
+                            <button onclick="window.dismissTeleport()" class="px-2.5 py-0.5 bg-amber-600 hover:bg-amber-700 text-[9px] font-bold rounded-lg transition">Ignorar</button>
+                            <button onclick="window.teleportToMission()" class="px-3 py-0.5 bg-yellow-400 hover:bg-yellow-300 text-slate-900 text-[9px] font-bold rounded-lg transition">Teletransportar</button>
+                        </div>
+                    </div>
+
                     <div class="bg-amber-50 p-4 rounded-2xl border-2 border-amber-200 relative mb-4">
                         <p id="clueText" class="text-xs md:text-sm font-bold text-slate-700 leading-relaxed">"¡Prepárate! Busca en los alrededores..."</p>
                         <div class="absolute -bottom-2 left-6 w-4 h-4 bg-amber-50 border-r-2 border-b-2 border-amber-200 transform rotate-45"></div>
@@ -456,6 +476,14 @@
                         updateStatusIndicator("🟢 ¡Servidor Conectado!");
                         const simBtn = document.getElementById('btnSimulate');
                         if(simBtn) simBtn.classList.remove('hidden');
+                        
+                        // SOLUCIÓN DE EVENTO ASÍNCRONO (RACE CONDITION):
+                        // Si el alumno ya ingresó su nombre y empezó, pero la autenticación demoró,
+                        // forzamos el guardado de su posición de inmediato al conectar.
+                        if (window.currentPlayerName && window.currentPlayerName !== "Aventurero") {
+                            savePositionToFirebase(window.playerLat, window.playerLng);
+                        }
+
                         checkUrlForRoom();
                     }
                 });
@@ -475,6 +503,8 @@
         window.gameMode = 'real';
         window.playerLat = -38.7359; 
         window.playerLng = -72.5904;
+        window.isTeleported = false;      // Bandera para ignorar el GPS real una vez teletransportado
+        window.hasDismissedTeleport = false; // Bandera para que no moleste el cartel
         window.watchId = null;
         window.playerMapInstance = null; // RENOMBRADO PARA EVITAR CONFLICTOS CON HTML ID="map"
         window.playerMarker = null;
@@ -633,7 +663,7 @@
                     window.playerLat = pos.coords.latitude;
                     window.playerLng = pos.coords.longitude;
                     if (window.adminMapInstance) {
-                        window.adminMapInstance.setView([window.playerLat, window.playerLng], 17);
+                        window.adminMapInstance.setView([window.playerLat, window.window.playerLng], 17);
                         const realProfIcon = L.divIcon({
                             className: 'custom-real-prof',
                             html: `<div class="text-xl">📍</div>`,
@@ -750,8 +780,6 @@
             if (window.unsubPlayersListener) window.unsubPlayersListener();
             if (!window.isFirebaseAvailable) return;
 
-            // CORRECCIÓN CRÍTICA DE LA RUTA EN FIRESTORE (REGLA 1):
-            // Cambiado 'window.appId' (un string literal que causaba error de permisos) a la variable real window.appId
             const playersCol = collection(window.db, 'artifacts', window.appId, 'public', 'data', 'players');
             
             window.unsubPlayersListener = onSnapshot(playersCol, (snapshot) => {
@@ -767,12 +795,20 @@
         function updateAdminPlayersUI(players) {
             const container = document.getElementById('livePlayersContainer');
             const countBadge = document.getElementById('livePlayersCount');
+            const fitBtn = document.getElementById('btnFitCompetitors');
             if(!container) return;
 
             for (let id in window.competitorMarkers) {
                 if (window.adminMapInstance && window.competitorMarkers[id]) window.adminMapInstance.removeLayer(window.competitorMarkers[id]);
             }
             window.competitorMarkers = {};
+
+            // Controlar visualización del botón de auto-enfoque de alumnos
+            if (players.length > 0) {
+                if (fitBtn) fitBtn.classList.remove('hidden');
+            } else {
+                if (fitBtn) fitBtn.classList.add('hidden');
+            }
 
             if (players.length === 0) {
                 container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-6">Ningún equipo conectado aún.</p>`;
@@ -821,6 +857,29 @@
                 }
             });
         }
+
+        // Auto-enfoque inteligente: Re-encuadra el mapa para contener todos los alumnos y al profesor
+        window.fitCompetitorsBounds = function() {
+            if (!window.adminMapInstance) return;
+            
+            const bounds = [];
+            if (window.playerLat && window.playerLng) {
+                bounds.push([window.playerLat, window.playerLng]);
+            }
+            
+            for (let id in window.competitorMarkers) {
+                const marker = window.competitorMarkers[id];
+                if (marker) {
+                    const latlng = marker.getLatLng();
+                    bounds.push([latlng.lat, latlng.lng]);
+                }
+            }
+            
+            if (bounds.length > 0) {
+                window.adminMapInstance.fitBounds(bounds, { padding: [50, 50] });
+                window.showAlert("Radar Enfocado", "Mapa ajustado para mostrar a todos los aventureros.", "🔍");
+            }
+        };
 
         window.simulateMockCompetitor = function() {
             if (!window.isFirebaseAvailable || !window.auth.currentUser) return;
@@ -1010,15 +1069,54 @@
             updateGameUI();
         }
 
-        function updatePlayerPosition(lat, lng) {
-            window.playerLat = lat;
-            window.playerLng = lng;
-            if (window.playerMarker) window.playerMarker.setLatLng([lat, lng]);
+        // Lógica de Teletransporte para Pruebas Remotas:
+        // Si el estudiante está en otra ciudad o país, puede teletransportarse para jugar virtualmente
+        window.teleportToMission = function() {
+            window.isTeleported = true;
+            const firstTreasure = window.treasures[0];
+            
+            if (firstTreasure && firstTreasure.coords && firstTreasure.coords.lat !== 0) {
+                // Colocar al estudiante 15 metros al Suroeste del primer tesoro
+                const teleportPos = addOffset(firstTreasure.coords.lat, firstTreasure.coords.lng, -15, -15);
+                window.playerLat = teleportPos.lat;
+                window.playerLng = teleportPos.lng;
+            } else {
+                // Si el profesor no ha definido el cofre 1, usar Temuco Centro por defecto
+                window.playerLat = -38.7359;
+                window.playerLng = -72.5904;
+            }
+            
+            // Detener geolocalización real
+            if (window.watchId && navigator.geolocation) {
+                navigator.geolocation.clearWatch(window.watchId);
+                window.watchId = null;
+            }
+            
+            // Mostrar panel de caminador virtual obligatoriamente
+            const simPanel = document.getElementById('simulatorPanel');
+            if (simPanel) simPanel.classList.remove('hidden');
+            
+            // Forzar refresco visual e informe en Firebase inmediato
+            if (window.playerMarker) window.playerMarker.setLatLng([window.playerLat, window.playerLng]);
+            savePositionToFirebase(window.playerLat, window.playerLng);
+            updateGameUI();
+            window.centerMapOnPlayer();
+            
+            const teleportCard = document.getElementById('teleportAlertCard');
+            if (teleportCard) teleportCard.classList.add('hidden');
+            
+            window.showAlert("¡Teletransportado!", "Ahora estás cerca de la misión. Usa el Caminador Virtual.", "🚀");
+        };
 
+        window.dismissTeleport = function() {
+            window.hasDismissedTeleport = true;
+            const teleportCard = document.getElementById('teleportAlertCard');
+            if (teleportCard) teleportCard.classList.add('hidden');
+        };
+
+        function savePositionToFirebase(lat, lng) {
             if (window.isFirebaseAvailable && window.auth && window.auth.currentUser && window.auth.currentUser.uid) {
                 try {
-                    // CORRECCIÓN EN ESCRITURA (REGLA 1):
-                    // Asegurar que la colección use la variable real window.appId y no el string plano 'window.appId'
                     const playerRef = doc(window.db, 'artifacts', window.appId, 'public', 'data', 'players', window.auth.currentUser.uid);
                     setDoc(playerRef, {
                         roomCode: window.activeRoomCode,
@@ -1033,6 +1131,14 @@
                     console.error("No se pudo actualizar posición en vivo:", e);
                 }
             }
+        }
+
+        function updatePlayerPosition(lat, lng) {
+            if (window.isTeleported) return; // Ignorar si está en modo virtual/teletransportado
+            window.playerLat = lat;
+            window.playerLng = lng;
+            if (window.playerMarker) window.playerMarker.setLatLng([lat, lng]);
+            savePositionToFirebase(lat, lng);
             updateGameUI();
         }
 
@@ -1060,6 +1166,16 @@
             }
 
             const distance = getDistance(window.playerLat, window.playerLng, activeTreasure.coords.lat, activeTreasure.coords.lng);
+            
+            // Activar alerta inteligente si está a más de 1 km
+            if (distance > 1000 && !window.hasDismissedTeleport && !window.isTeleported) {
+                const teleportCard = document.getElementById('teleportAlertCard');
+                if (teleportCard) teleportCard.classList.remove('hidden');
+            } else {
+                const teleportCard = document.getElementById('teleportAlertCard');
+                if (teleportCard) teleportCard.classList.add('hidden');
+            }
+
             const dv = document.getElementById('distanceValue');
             if (dv) dv.textContent = Math.round(distance);
 
@@ -1183,9 +1299,13 @@
         };
 
         window.simulateMove = function(dn, de) {
-            if (window.playerLat === null || window.playerLng === null) return;
+            window.isTeleported = true; // Activar el modo virtual
             const newPos = addOffset(window.playerLat, window.playerLng, dn, de);
-            updatePlayerPosition(newPos.lat, newPos.lng);
+            window.playerLat = newPos.lat;
+            window.playerLng = newPos.lng;
+            if (window.playerMarker) window.playerMarker.setLatLng([newPos.lat, newPos.lng]);
+            savePositionToFirebase(newPos.lat, newPos.lng);
+            updateGameUI();
             window.centerMapOnPlayer();
         };
 
@@ -1204,6 +1324,22 @@
             alertBox.classList.remove('translate-y-0', 'opacity-100');
             alertBox.classList.add('-translate-y-40', 'opacity-0', 'pointer-events-none');
         };
+
+        // Exponer explícitamente las funciones al contexto global (window)
+        window.switchScreen = switchScreen;
+        window.selectAvatar = selectAvatar;
+        window.resetAdminMission = resetAdminMission;
+        window.publishGame = publishGame;
+        window.simulateMockCompetitor = simulateMockCompetitor;
+        window.playOwnCreatedGame = playOwnCreatedGame;
+        window.joinGameByCode = joinGameByCode;
+        window.confirmPlayerNameAndStart = confirmPlayerNameAndStart;
+        window.centerMapOnPlayer = centerMapOnPlayer;
+        window.simulateMove = simulateMove;
+        window.centerAdminMap = centerAdminMap;
+        window.selectTreasureToPlace = selectTreasureToPlace;
+        window.teleportToMission = teleportToMission;
+        window.dismissTeleport = dismissTeleport;
 
         // Escuchador de redimensionamiento
         window.addEventListener('resize', () => {
