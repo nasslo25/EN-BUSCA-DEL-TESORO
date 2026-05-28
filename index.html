@@ -468,13 +468,13 @@
                     </div>
                     <div class="grid grid-cols-3 gap-2 max-w-[240px] mx-auto">
                         <div></div>
-                        <button type="button" onclick="window.simulateMove(0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans font-sans">ARRIBA ↑</button>
+                        <button type="button" onclick="window.simulateMove(0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans">ARRIBA ↑</button>
                         <div></div>
-                        <button type="button" onclick="window.simulateMove(0, -0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans font-sans font-sans">← IZQ</button>
-                        <div class="flex items-center justify-center text-xs text-blue-500 font-bold bg-blue-50 rounded-xl border border-blue-100 font-sans font-sans font-sans font-sans">Paso</div>
-                        <button type="button" onclick="window.simulateMove(0, 0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans font-sans font-sans">DER →</button>
+                        <button type="button" onclick="window.simulateMove(0, -0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans font-sans">← IZQ</button>
+                        <div class="flex items-center justify-center text-xs text-blue-500 font-bold bg-blue-50 rounded-xl border border-blue-100 font-sans font-sans font-sans font-sans font-sans font-sans">Paso</div>
+                        <button type="button" onclick="window.simulateMove(0, 0.0001)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans font-sans">DER →</button>
                         <div></div>
-                        <button type="button" onclick="window.simulateMove(-0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans font-sans font-sans">ABAJO ↓</button>
+                        <button type="button" onclick="window.simulateMove(-0.00008, 0)" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 rounded-xl text-xs border-b-4 border-blue-600 transition-all font-sans font-sans">ABAJO ↓</button>
                         <div></div>
                     </div>
                 </div>
@@ -499,7 +499,7 @@
                     <span class="text-xl">💬</span>
                     <div>
                         <h4 class="text-xs font-bold font-sans">Chat con el Profesor</h4>
-                        <p class="text-[9px] text-purple-100 font-bold font-sans">Misión en Vivo</p>
+                        <p class="text-[9px] text-purple-100 font-bold font-sans font-sans font-sans">Misión en Vivo</p>
                     </div>
                 </div>
                 <button onclick="window.togglePlayerChatWindow()" class="text-white hover:text-purple-100 font-extrabold text-lg px-2">&times;</button>
@@ -507,22 +507,22 @@
 
             <!-- Pestañas Alumno (General/Privado) -->
             <div class="flex border-b border-slate-100 text-[10px] font-bold bg-slate-50">
-                <button id="playerTabAll" onclick="window.selectPlayerChatTab('all')" class="flex-1 py-2 text-center text-purple-600 border-b-2 border-purple-600">
+                <button id="playerTabAll" onclick="window.selectPlayerChatTab('all')" class="flex-1 py-2 text-center text-purple-600 border-b-2 border-purple-600 font-sans">
                     📣 Aviso Profe
                 </button>
-                <button id="playerTabPrivate" onclick="window.selectPlayerChatTab('private')" class="flex-1 py-2 text-center text-slate-500 border-b-2 border-transparent">
+                <button id="playerTabPrivate" onclick="window.selectPlayerChatTab('private')" class="flex-1 py-2 text-center text-slate-500 border-b-2 border-transparent font-sans">
                     👤 Mi Chat Privado
                 </button>
             </div>
 
             <!-- Historial de conversación Alumno -->
-            <div id="playerChatBox" class="flex-grow overflow-y-auto p-3 space-y-2 bg-slate-50 text-[11px] font-semibold font-sans">
+            <div id="playerChatBox" class="flex-grow overflow-y-auto p-3 space-y-2 bg-slate-50 text-[11px] font-semibold font-sans font-sans">
                 <p class="text-slate-400 italic text-center py-4">No hay mensajes aún.</p>
             </div>
 
             <!-- Caja de envío Alumno -->
-            <div class="p-2 bg-white border-t border-slate-100 flex gap-1.5 font-sans">
-                <input id="playerChatMessageInput" type="text" placeholder="Escribe un mensaje al profe..." class="flex-grow border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-purple-500 font-semibold text-slate-800 font-sans font-sans">
+            <div class="p-2 bg-white border-t border-slate-100 flex gap-1.5 font-sans font-sans">
+                <input id="playerChatMessageInput" type="text" placeholder="Escribe un mensaje al profe..." class="flex-grow border border-slate-200 rounded-xl px-3 py-1.5 text-xs focus:outline-none focus:border-purple-500 font-semibold text-slate-800 font-sans font-sans font-sans">
                 <button onclick="window.sendPlayerChatMessage()" class="bg-purple-600 hover:bg-purple-700 text-white rounded-xl px-3 py-1.5 flex items-center justify-center transition active:scale-95 font-sans">
                     🚀
                 </button>
@@ -532,13 +532,13 @@
 
     <!-- PANTALLA DE ÉXITO: Victoria -->
     <main id="victoryScreen" class="hidden flex-grow flex flex-col justify-center items-center p-4 md:p-8 text-center max-md mx-auto space-y-6 w-full">
-        <div class="bg-white p-6 md:p-10 rounded-3xl border-4 border-emerald-400 shadow-2xl space-y-6 w-full relative overflow-hidden font-sans">
+        <div class="bg-white p-6 md:p-10 rounded-3xl border-4 border-emerald-400 shadow-2xl space-y-6 w-full relative overflow-hidden font-sans font-sans">
             <div class="text-6xl md:text-7xl animate-bounce">🏆</div>
             <div class="space-y-2 font-sans">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-600 font-sans font-sans">¡Victoria!</h2>
-                <p class="text-xs md:text-sm font-semibold text-slate-600 font-sans font-sans">¡Encontraste todos los tesoros!</p>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-600 font-sans font-sans font-sans">¡Victoria!</h2>
+                <p class="text-xs md:text-sm font-semibold text-slate-600 font-sans font-sans font-sans">¡Encontraste todos los tesoros!</p>
             </div>
-            <button type="button" onclick="location.reload()" class="w-full btn-game-green font-bold py-4 rounded-2xl text-base md:text-lg shadow-lg tracking-wide font-sans font-sans">
+            <button type="button" onclick="location.reload()" class="w-full btn-game-green font-bold py-4 rounded-2xl text-base md:text-lg shadow-lg tracking-wide font-sans font-sans font-sans font-sans">
                 ¡Jugar Otra Vez! 🎉
             </button>
         </div>
@@ -549,7 +549,7 @@
         <span class="text-3xl" id="alertIcon">🦜</span>
         <div class="flex-grow font-sans">
             <h4 class="text-sm font-extrabold text-yellow-600" id="alertTitle font-sans">Notificación</h4>
-            <p class="text-xs text-slate-600 font-bold font-sans font-sans" id="alertMsg"></p>
+            <p class="text-xs text-slate-600 font-bold font-sans font-sans font-sans" id="alertMsg"></p>
         </div>
         <button type="button" onclick="window.closeAlert()" class="bg-slate-100 hover:bg-slate-200 p-1 rounded-full border border-slate-300">
             <svg class="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" /></svg>
@@ -561,7 +561,7 @@
         <div class="bg-white rounded-3xl p-6 border-4 border-rose-400 max-w-sm w-full text-center space-y-4 shadow-2xl">
             <div class="text-5xl animate-bounce font-sans">🛑</div>
             <h3 class="text-lg font-bold text-rose-600 font-sans" id="confirmModalTitle">¿Estás seguro?</h3>
-            <p class="text-xs font-semibold text-slate-500 font-sans font-sans font-sans font-sans" id="confirmModalMsg">¿Estás seguro de que deseas salir y terminar la sesión actual?</p>
+            <p class="text-xs font-semibold text-slate-500 font-sans font-sans font-sans font-sans font-sans" id="confirmModalMsg">¿Estás seguro de que deseas salir y terminar la sesión actual?</p>
             <div class="flex gap-3 pt-2">
                 <button type="button" onclick="window.closeConfirmModal()" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-xl text-xs font-sans">
                     Cancelar
@@ -653,8 +653,8 @@
             playerID: null,
             playerName: "",
             playerAvatar: "🐆",
-            playerLat: 0,
-            playerLng: 0,
+            playerLat: -33.456, // Saneado: Evitamos el '0' inicial para garantizar la activación rápida en Firebase
+            playerLng: -70.648, // Saneado: Evitamos el '0' inicial para garantizar la activación rápida en Firebase
             currentTreasureIndex: 0, 
             backpack: [false, false, false],
             
@@ -1207,7 +1207,7 @@
                 }
 
                 if (filtered.length === 0) {
-                    playerBox.innerHTML = `<div class="text-slate-400 italic text-center py-4 text-xs font-sans">No hay mensajes aquí.</div>`;
+                    playerBox.innerHTML = `<div class="text-slate-400 italic text-center py-4 text-xs font-sans font-semibold">No hay mensajes aquí.</div>`;
                 } else {
                     filtered.forEach(msg => {
                         const isSelf = msg.senderId === gameState.playerID;
@@ -1382,16 +1382,18 @@
         function updateLivePlayersList(players) {
             const container = document.getElementById('livePlayersContainer');
             const countBadge = document.getElementById('livePlayersCount');
-            countBadge.textContent = players.length;
+            if (countBadge) countBadge.textContent = players.length;
 
             if (players.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-4 font-sans">Ningún equipo conectado aún.</p>`;
-                document.getElementById('btnFitCompetitors').classList.add('hidden');
+                if (container) container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-4 font-sans">Ningún equipo conectado aún.</p>`;
+                const btnFit = document.getElementById('btnFitCompetitors');
+                if (btnFit) btnFit.classList.add('hidden');
                 return;
             }
 
-            container.innerHTML = "";
-            document.getElementById('btnFitCompetitors').classList.remove('hidden');
+            if (container) container.innerHTML = "";
+            const btnFit = document.getElementById('btnFitCompetitors');
+            if (btnFit) btnFit.classList.remove('hidden');
 
             players.forEach(p => {
                 const totalCofres = gameState.treasures.length;
@@ -1407,7 +1409,7 @@
                 ` : '';
 
                 const row = document.createElement('div');
-                row.className = `flex items-center justify-between p-2.5 bg-white border rounded-2xl shadow-sm transition-all duration-300 ${hasUnread ? 'border-rose-400 bg-rose-50/50 animate-pulse font-sans' : 'border-slate-100 font-sans'}`;
+                row.className = `flex items-center justify-between p-2.5 bg-white border rounded-2xl shadow-sm transition-all duration-300 ${hasUnread ? 'border-rose-400 bg-rose-50/50 animate-pulse font-sans' : 'border-slate-100'}`;
                 
                 row.innerHTML = `
                     <div class="flex items-center gap-2 font-sans">
@@ -1417,7 +1419,7 @@
                             <p class="text-[9px] text-slate-400 font-semibold font-sans">Paso ${p.currentTreasureIndex + 1} de ${totalCofres}</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-1.5 font-sans">
+                    <div class="flex items-center gap-1.5 font-sans font-sans">
                         <div class="relative">
                             <button onclick="window.selectAdminChatTarget('${p.playerID}', '${p.playerName}')" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 text-[10px] font-bold px-2.5 py-1 rounded-lg transition" title="Hablar en privado">
                                 💬
@@ -1429,7 +1431,7 @@
                         </button>
                     </div>
                 `;
-                container.appendChild(row);
+                if (container) container.appendChild(row);
 
                 if (p.lat && p.lng && window.adminMapInstance) {
                     if (window.adminPlayerMarkers[p.playerID]) {
@@ -1559,8 +1561,8 @@
                     activeGameId: gameState.activeGameId,
                     currentTreasureIndex: 0,
                     backpack: gameState.backpack,
-                    lat: gameState.playerLat || gameState.defaultCoords.lat,
-                    lng: gameState.playerLng || gameState.defaultCoords.lng,
+                    lat: gameState.playerLat,
+                    lng: gameState.playerLng,
                     lastUpdated: new Date().toISOString()
                 });
 
@@ -1601,11 +1603,6 @@
             if (window.playerMapInstance) {
                 setTimeout(() => window.playerMapInstance.invalidateSize(), 200);
                 return;
-            }
-
-            if (!gameState.playerLat || !gameState.playerLng) {
-                gameState.playerLat = gameState.defaultCoords.lat;
-                gameState.playerLng = gameState.defaultCoords.lng;
             }
 
             const initialLat = gameState.playerLat;
@@ -1693,34 +1690,41 @@
                     const lng = pos.coords.longitude;
                     const accuracy = pos.coords.accuracy || 0;
 
-                    // FILTRADO INTELIGENTE GPS: Ignorar lecturas con mala precisión (ej. > 45 metros de error)
-                    if (accuracy > 45) {
-                        console.warn("Señal GPS débil o imprecisa detectada. Omitiendo actualización:", accuracy, "metros de error");
-                        document.getElementById('gameStatusIndicator').textContent = "Señal GPS Débil 🛰️ (Error: ±" + Math.round(accuracy) + "m)";
-                        document.getElementById('gameStatusIndicator').className = "bg-rose-100 text-rose-800 text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full border-2 border-rose-400 shadow-sm whitespace-nowrap animate-pulse";
-                        return;
+                    // FLEXIBILIZACIÓN DEL GPS: No bloqueamos la actualización si el margen de error es alto.
+                    // Simplemente mostramos un indicador visual si supera los 80 metros de margen.
+                    if (accuracy > 80) {
+                        const statusEl = document.getElementById('gameStatusIndicator');
+                        if (statusEl) {
+                            statusEl.textContent = "Señal GPS Baja 🛰️ (Error: ±" + Math.round(accuracy) + "m)";
+                            statusEl.className = "bg-rose-100 text-rose-800 text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full border-2 border-rose-400 shadow-sm whitespace-nowrap animate-pulse";
+                        }
+                    } else {
+                        const statusEl = document.getElementById('gameStatusIndicator');
+                        if (statusEl) {
+                            statusEl.textContent = "GPS Conectado (Precisión: ±" + Math.round(accuracy) + "m) 🛰️";
+                            statusEl.className = "bg-emerald-300 text-emerald-800 text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full border-2 border-emerald-500 shadow-sm whitespace-nowrap";
+                        }
                     }
 
-                    // FILTRO PASA-BAJOS (SUAVIZADO EXPONENCIAL):
-                    // Evita saltos bruscos en el mapa debido al rebote de señal o deriva GPS en interiores.
-                    const alpha = 0.35; // Factor de suavizado (0.0 a 1.0)
+                    // FILTRO DE SUAVIZADO EXPONENCIAL (PASA-BAJOS):
+                    const alpha = 0.35; // Suavizado de coordenadas
                     let targetLat = lat;
                     let targetLng = lng;
 
-                    if (gameState.playerLat !== 0 && gameState.playerLng !== 0) {
+                    if (gameState.playerLat !== -33.456 && gameState.playerLng !== -70.648) {
                         targetLat = (gameState.playerLat * (1 - alpha)) + (lat * alpha);
                         targetLng = (gameState.playerLng * (1 - alpha)) + (lng * alpha);
                     }
-
-                    document.getElementById('gameStatusIndicator').textContent = "GPS Conectado (Precisión: ±" + Math.round(accuracy) + "m) 🛰️";
-                    document.getElementById('gameStatusIndicator').className = "bg-emerald-300 text-emerald-800 text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full border-2 border-emerald-500 shadow-sm whitespace-nowrap";
 
                     updatePlayerPosition(targetLat, targetLng);
                 },
                 (err) => {
                     console.warn("Error de precisión GPS o permisos. Modo simulador disponible.", err);
-                    document.getElementById('gameStatusIndicator').textContent = "Falla de Señal GPS 📡";
-                    document.getElementById('gameStatusIndicator').className = "bg-amber-300 text-amber-800 text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full border-2 border-amber-500 shadow-sm whitespace-nowrap";
+                    const statusEl = document.getElementById('gameStatusIndicator');
+                    if (statusEl) {
+                        statusEl.textContent = "Falla de Señal GPS 📡";
+                        statusEl.className = "bg-amber-300 text-amber-800 text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-full border-2 border-amber-500 shadow-sm whitespace-nowrap";
+                    }
                 },
                 {
                     enableHighAccuracy: true,
@@ -1732,27 +1736,26 @@
 
         function startLocationTracking() {
             if (!db) return;
-            if (gameState.activeGameId && currentUser) {
-                setInterval(async () => {
-                    if (!gameState.playerLat || !gameState.playerLng) return;
-                    try {
-                        const playerDocRef = doc(db, 'artifacts', window.appId, 'public', 'data', 'players', gameState.playerID);
-                        await updateDoc(playerDocRef, {
-                            lat: gameState.playerLat,
-                            lng: gameState.playerLng,
-                            currentTreasureIndex: gameState.currentTreasureIndex,
-                            backpack: gameState.backpack,
-                            lastUpdated: new Date().toISOString()
-                        });
-                    } catch (e) {
-                        // Captura silenciosa
-                    }
-                }, 4000);
-            }
+            setInterval(async () => {
+                // Ahora no se bloquea por tener coordenadas iniciales '0'
+                if (!auth.currentUser) return;
+                try {
+                    const playerDocRef = doc(db, 'artifacts', window.appId, 'public', 'data', 'players', gameState.playerID);
+                    await updateDoc(playerDocRef, {
+                        lat: gameState.playerLat,
+                        lng: gameState.playerLng,
+                        currentTreasureIndex: gameState.currentTreasureIndex,
+                        backpack: gameState.backpack,
+                        lastUpdated: new Date().toISOString()
+                    });
+                } catch (e) {
+                    console.error("Error al reportar ubicación automática:", e);
+                }
+            }, 4000);
         }
 
         async function savePositionToFirebase() {
-            if (!db || !gameState.activeGameId || !gameState.playerID) return;
+            if (!db || !gameState.activeGameId || !gameState.playerID || !auth.currentUser) return;
             try {
                 const playerDocRef = doc(db, 'artifacts', window.appId, 'public', 'data', 'players', gameState.playerID);
                 await updateDoc(playerDocRef, {
@@ -1843,11 +1846,12 @@
             const targetTreasure = gameState.treasures[currentIdx];
             if (!targetTreasure) return;
 
-            const pLat = gameState.playerLat || gameState.defaultCoords.lat;
-            const pLng = gameState.playerLng || gameState.defaultCoords.lng;
+            const pLat = gameState.playerLat;
+            const pLng = gameState.playerLng;
 
             const distance = getDistanceMeters(pLat, pLng, targetTreasure.lat, targetTreasure.lng);
-            document.getElementById('distanceValue').textContent = distance;
+            const distValEl = document.getElementById('distanceValue');
+            if (distValEl) distValEl.textContent = distance;
 
             const bearing = getBearingDegrees(pLat, pLng, targetTreasure.lat, targetTreasure.lng);
             const pointer = document.getElementById('radarPointer');
@@ -1856,30 +1860,37 @@
             }
 
             const proximityBadge = document.getElementById('proximityText');
-            if (distance > 60) {
-                proximityBadge.textContent = "❄️ FRÍO";
-                proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-blue-500 text-white shadow-sm";
-            } else if (distance > 25) {
-                proximityBadge.textContent = "⛅ TIBIO";
-                proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-amber-500 text-white shadow-sm";
-            } else if (distance > 8) {
-                proximityBadge.textContent = "🔥 ¡CALIENTE!";
-                proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-rose-500 text-white shadow-sm animate-pulse";
-            } else {
-                proximityBadge.textContent = "🎁 ¡AQUÍ ESTÁ!";
-                proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-500 text-white shadow-sm animate-bounce";
-                
-                captureTreasure(currentIdx);
+            if (proximityBadge) {
+                if (distance > 60) {
+                    proximityBadge.textContent = "❄️ FRÍO";
+                    proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-blue-500 text-white shadow-sm";
+                } else if (distance > 25) {
+                    proximityBadge.textContent = "⛅ TIBIO";
+                    proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-amber-500 text-white shadow-sm";
+                } else if (distance > 8) {
+                    proximityBadge.textContent = "🔥 ¡CALIENTE!";
+                    proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-rose-500 text-white shadow-sm animate-pulse";
+                } else {
+                    proximityBadge.textContent = "🎁 ¡AQUÍ ESTÁ!";
+                    proximityBadge.className = "text-[10px] md:text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-500 text-white shadow-sm animate-bounce";
+                    
+                    captureTreasure(currentIdx);
+                }
             }
 
-            document.getElementById('clueIndex').textContent = `Tesoro ${currentIdx + 1} de ${totalCofres}`;
-            document.getElementById('clueText').textContent = `"${targetTreasure.clue || '¡Busca en la dirección de la aguja dorada!'}"`;
+            const clueIdxEl = document.getElementById('clueIndex');
+            if (clueIdxEl) clueIdxEl.textContent = `Tesoro ${currentIdx + 1} de ${totalCofres}`;
+            
+            const clueTextEl = document.getElementById('clueText');
+            if (clueTextEl) clueTextEl.textContent = `"${targetTreasure.clue || '¡Busca en la dirección de la aguja dorada!'}"`;
 
             const teleportCard = document.getElementById('teleportAlertCard');
-            if (distance > 200) {
-                teleportCard.classList.remove('hidden');
-            } else {
-                teleportCard.classList.add('hidden');
+            if (teleportCard) {
+                if (distance > 200) {
+                    teleportCard.classList.remove('hidden');
+                } else {
+                    teleportCard.classList.add('hidden');
+                }
             }
 
             updatePlayerMapTreasures();
@@ -1906,7 +1917,7 @@
             const preset = TREASURE_PRESETS[index % TREASURE_PRESETS.length];
             window.showAlert("¡ENCONTRADO!", `¡Excelente trabajo! Guardaste ${preset.name} en tu mochila.`, preset.emoji);
 
-            if (db) {
+            if (db && auth.currentUser) {
                 try {
                     const playerDocRef = doc(db, 'artifacts', window.appId, 'public', 'data', 'players', gameState.playerID);
                     await updateDoc(playerDocRef, {
@@ -1946,12 +1957,6 @@
         }
 
         window.simulateMove = function(latOffset, lngOffset) {
-            if (!gameState.playerLat || !gameState.playerLng) {
-                const target = gameState.treasures[gameState.currentTreasureIndex] || gameState.defaultCoords;
-                gameState.playerLat = target.lat - 0.0005; 
-                gameState.playerLng = target.lng - 0.0005;
-            }
-
             const newLat = gameState.playerLat + latOffset;
             const newLng = gameState.playerLng + lngOffset;
 
@@ -1976,12 +1981,14 @@
                 window.playerMapInstance.setView([target.lat + offsetLat, target.lng + offsetLng], 18);
             }
 
-            document.getElementById('teleportAlertCard').classList.add('hidden');
+            const teleEl = document.getElementById('teleportAlertCard');
+            if (teleEl) teleEl.classList.add('hidden');
             window.showAlert("¡Teletransportado!", "Te has movido cerca del cofre misterioso. ¡Usa la aguja para encontrarlo!", "🌀");
         };
 
         window.dismissTeleport = function() {
-            document.getElementById('teleportAlertCard').classList.add('hidden');
+            const teleEl = document.getElementById('teleportAlertCard');
+            if (teleEl) teleEl.classList.add('hidden');
         };
 
         window.centerMapOnPlayer = function() {
